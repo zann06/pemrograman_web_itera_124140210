@@ -1,0 +1,42 @@
+:root {
+  --bg: #eef2f1; --ink: #14262b; --muted: #5b6e72; --line: #d3dddc;
+  --primary: #0f766e; --primary-d: #0b5a54; --danger: #b42318; --ok: #146c43; --card: #fff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.5; }
+.topbar { background: var(--ink); color: #fff; padding: 20px 24px; }
+.topbar h1 { margin: 0; font-size: 1.5rem; }
+.topbar p { margin: 2px 0 0; color: #b8c9cc; }
+.layout { max-width: 1000px; margin: 24px auto; padding: 0 16px; display: grid; gap: 16px; grid-template-columns: 320px 1fr; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
+.card.wide { grid-column: 2; }
+.card h2 { margin: 0 0 12px; font-size: 1.1rem; }
+label { display: block; font-weight: 600; font-size: .9rem; margin-top: 10px; }
+input { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 1rem; margin-top: 4px; }
+input:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+input.invalid { border-color: var(--danger); }
+.error { color: var(--danger); font-size: .85rem; min-height: 1.2em; margin: 4px 0 0; }
+.btn { margin-top: 14px; padding: 10px 16px; border: 0; border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: 600; }
+.btn.primary { background: var(--primary); color: #fff; width: 100%; }
+.btn.primary:hover { background: var(--primary-d); }
+.btn.danger { background: var(--danger); color: #fff; }
+.btn.small { margin: 0; padding: 5px 10px; font-size: .85rem; background: #fde8e6; color: var(--danger); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; }
+th { background: #f4f7f6; }
+.num { text-align: right; }
+.empty { text-align: center; color: var(--muted); padding: 18px; }
+.summary { display: grid; gap: 6px; }
+.summary div { display: flex; justify-content: space-between; }
+.summary .grand { border-top: 2px solid var(--ink); padding-top: 8px; font-size: 1.3rem; }
+.hint { color: var(--muted); font-size: .85rem; }
+.pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kembalian { font-weight: 700; font-size: 1.1rem; min-height: 1.6em; }
+.kembalian.ok { color: var(--ok); }
+.kembalian.kurang { color: var(--danger); }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .card.wide { grid-column: 1; }
+  .pay-grid { grid-template-columns: 1fr; }
+}
