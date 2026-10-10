@@ -5,7 +5,7 @@ Repository praktikum Pemrograman Web ITERA.
 ## Identitas
 - **Nama Lengkap**: Farid Rizky Fauzan
 - **NIM**: 124140210
-- **Kelas Praktikum**: RC
+- **Kelas Praktikum**: RA
 
 ## Daftar Pertemuan
 | Pertemuan | Folder | Isi |
