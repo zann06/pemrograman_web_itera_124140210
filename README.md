@@ -217,19 +217,3 @@ Prinsip yang diterapkan: **encapsulation** (`#tasks` private field), **immutabil
 |---|---|
 | ![Run demo](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/01-run-demo-bagian-atas.png) | ![Demo async](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/03-demo-async-promise-await.png) |
 
-## Verifikasi
-
-| Pemeriksaan | Praktikum | Tugas |
-|---|---:|---:|
-| Validasi sintaks (`node --check`) | 4/4 | 7/7 |
-| Uji fungsional otomatis | 101/101 | 160/160 |
-| Entri fitur ES6+ terdokumentasi per baris | 96 | 90 |
-
-Total **261 pengujian otomatis lulus, 0 gagal, 0 error sintaks**.
-
-Bug yang ditemukan dan diperbaiki selama pengembangan:
-
-1. Kunci `localStorage` terduplikasi namespace (`paw2.dashboard.paw2.dashboard.tasks`) → disederhanakan
-2. `export { formatRupiah }` tanpa import → `SyntaxError` saat modul dimuat → dihapus
-3. Badge tenggat menampilkan "Terlambat 20748 hari" → `formatRelative()` kini menerima angka sebagai jumlah hari
-4. Import tidak terpakai di `main.js` dan `app.js` → dibersihkan
