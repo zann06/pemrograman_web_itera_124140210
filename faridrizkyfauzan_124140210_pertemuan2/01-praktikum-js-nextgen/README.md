@@ -463,25 +463,10 @@ Dihitung otomatis dari tabel di bawah. Satu baris kode bisa masuk lebih dari sat
 > Diambil otomatis dengan Chrome headless (`puppeteer-core`) pada 1440×950, 2× scale.
 > Baris **12d** dan **12e** memakai data nyata dari API publik (Open-Meteo & DummyJSON).
 
-### 1. Demo sinkron — 10 topik ES6+
+| Demo sinkron — 10 topik ES6+ | Seluruh output (halaman penuh) | Demo async — Promise & Async/Await |
+|---|---|---|
+| ![Run demo](screenshots/01-run-demo-bagian-atas.png) | ![Run demo lengkap](screenshots/02-run-demo-lengkap.png) | ![Demo async](screenshots/03-demo-async-promise-await.png) |
 
-Hasil setelah menekan tombol **▶ Run Demo**.
-
-![Run demo](screenshots/01-run-demo-bagian-atas.png)
-
-### 2. Seluruh output (halaman penuh)
-
-10 demo sinkron beserta kartu ringkasan 12 topik.
-
-![Run demo lengkap](screenshots/02-run-demo-lengkap.png)
-
-### 3. Demo async — Promise & Async/Await
-
-Hasil setelah menekan tombol **⏳ Jalankan Demo Async**. Perhatikan baris
-**12b** yang membuktikan `Promise.all` berjalan paralel (±1000ms, bukan 3000ms),
-serta **12d/12e** yang menampilkan data nyata dari API publik.
-
-![Demo async](screenshots/03-demo-async-promise-await.png)
 
 ## 🚀 Push ke GitHub
 

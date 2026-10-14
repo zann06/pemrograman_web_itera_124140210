@@ -202,64 +202,23 @@ saat `init()` berjalan (lihat `hydrateIcons()` di `main.js`):
 
 ## 📸 Screenshot
 
-> Semua gambar di folder `docs/screenshots/` diambil otomatis dengan Chrome headless
-> (`puppeteer-core`) pada **1440×900** (desktop, 2× scale) dan **390×844** (mobile).
-> Data pada screenshot diambil dari **API publik sungguhan** — cuaca Open-Meteo,
+> Semua gambar diambil otomatis dengan Chrome headless (`puppeteer-core`) pada
+> **1440×900** (desktop, 2× scale) dan **390×844** (mobile).
+> Data di dalam screenshot berasal dari **API publik sungguhan** — cuaca Open-Meteo,
 > kutipan DummyJSON, dan 6 tugas dari JSONPlaceholder.
 
-### 1. Dashboard utama (desktop)
+| Dashboard utama | Form tambah tugas | Filter & pencarian |
+|---|---|---|
+| ![Dashboard utama](docs/screenshots/01-dashboard-utama.png) | ![Form tambah tugas](docs/screenshots/02-form-tambah-tugas.png) | ![Filter dan pencarian](docs/screenshots/03-filter-dan-pencarian.png) |
 
-Tampilan lengkap: profil, 4 kartu statistik, progress bar + distribusi kategori,
-kutipan motivasi, daftar tugas, serta sidebar (cuaca, catatan, jadwal, panel storage).
+| Widget async (cuaca, kutipan, jadwal) | Panel penyimpanan lokal | Ringkasan fitur ES6+ |
+|---|---|---|
+| ![Widget cuaca kutipan jadwal](docs/screenshots/04-widget-cuaca-kutipan-jadwal.png) | ![Panel penyimpanan lokal](docs/screenshots/05-panel-penyimpanan-lokal.png) | ![Daftar fitur ES6](docs/screenshots/06-daftar-fitur-es6.png) |
 
-![Dashboard utama](docs/screenshots/01-dashboard-utama.png)
+| Tampilan mobile (390×844) |
+|---|
+| ![Tampilan mobile](docs/screenshots/07-tampilan-mobile.png) |
 
-### 2. Form tambah tugas (modal)
-
-Bukti interaktif — modal dengan validasi judul, dropdown kategori/prioritas, dan date picker.
-
-![Form tambah tugas](docs/screenshots/02-form-tambah-tugas.png)
-
-### 3. Pencarian + filter kategori aktif
-
-Mencari kata kunci `tugas` **dan** memilih kategori "Tugas" sekaligus —
-setiap kondisi filter diterapkan terpisah lalu digabung.
-
-![Filter dan pencarian](docs/screenshots/03-filter-dan-pencarian.png)
-
-### 4. Widget async: cuaca, kutipan, jadwal
-
-Cuaca real-time di Bandar Lampung dari **Open-Meteo**, kutipan dari **DummyJSON**,
-dan jadwal kuliah dengan badge otomatis "Hari ini".
-
-![Widget cuaca kutipan jadwal](docs/screenshots/04-widget-cuaca-kutipan-jadwal.png)
-
-### 5. Panel penyimpanan lokal
-
-Menampilkan status `localStorage`, jumlah item, jumlah key, dan ukuran data.
-
-![Panel penyimpanan lokal](docs/screenshots/05-panel-penyimpanan-lokal.png)
-
-### 6. Ringkasan fitur ES6+ yang dipakai
-
-![Daftar fitur ES6](docs/screenshots/06-daftar-fitur-es6.png)
-
-### 7. Tampilan mobile (390×844)
-
-Tata letak berubah menjadi satu kolom; seluruh fitur tetap berfungsi.
-
-![Tampilan mobile](docs/screenshots/07-tampilan-mobile.png)
-
-### Cara membuat ulang screenshot
-
-Screenshot diambil dengan skrip otomatis agar konsisten. Untuk mengambil ulang
-secara manual:
-
-1. Jalankan aplikasi via **Live Server**
-2. Tunggu API selesai termuat (±2 detik)
-3. Tekan `Win + Shift + S` (Windows) atau `Cmd + Shift + 4` (Mac)
-4. Simpan ke `docs/screenshots/` dengan nama yang sama
-5. `Ctrl + F5` untuk memuat ulang halaman (hard refresh)
 
 ## ▶️ Cara Menjalankan
 
