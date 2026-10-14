@@ -56,25 +56,47 @@ const fetchJSON = async (url, timeout = REQUEST_TIMEOUT) => {
    1. CUACA REAL-TIME — Open-Meteo
    ========================================================= */
 
-/** Peta kode cuaca WMO -> label bahasa Indonesia */
+/**
+ * Peta kode cuaca WMO -> { label, icon }.
+ *
+ * `icon` adalah NAMA IKON dari modules/icons.js (bukan emoji),
+ * supaya tampilan konsisten dengan gaya Lucide/shadcn.
+ *
+ * Referensi kode: https://open-meteo.com/en/docs
+ */
 const WEATHER_CODES = {
-  0: { label: "Cerah", icon: "☀️" },
-  1: { label: "Cerah Berawan", icon: "🌤️" },
-  2: { label: "Berawan Sebagian", icon: "⛅" },
-  3: { label: "Mendung", icon: "☁️" },
-  45: { label: "Berkabut", icon: "🌫️" },
-  48: { label: "Kabut Beku", icon: "🌫️" },
-  51: { label: "Gerimis Ringan", icon: "🌦️" },
-  53: { label: "Gerimis", icon: "🌦️" },
-  55: { label: "Gerimis Lebat", icon: "🌧️" },
-  61: { label: "Hujan Ringan", icon: "🌦️" },
-  63: { label: "Hujan Sedang", icon: "🌧️" },
-  65: { label: "Hujan Lebat", icon: "🌧️" },
-  71: { label: "Salju Ringan", icon: "🌨️" },
-  75: { label: "Salju", icon: "❄️" },
-  80: { label: "Hujan Lokal", icon: "🌦️" },
-  95: { label: "Hujan Badai", icon: "⛈️" }
+  0:  { label: "Cerah",              icon: "sun" },
+  1:  { label: "Cerah Berawan",      icon: "cloudSun" },
+  2:  { label: "Berawan Sebagian",   icon: "cloudSun" },
+  3:  { label: "Mendung",            icon: "cloud" },
+  45: { label: "Berkabut",           icon: "cloudFog" },
+  48: { label: "Kabut Beku",         icon: "cloudFog" },
+  51: { label: "Gerimis Ringan",     icon: "cloudRain" },
+  53: { label: "Gerimis",            icon: "cloudRain" },
+  55: { label: "Gerimis Lebat",      icon: "cloudRain" },
+  56: { label: "Gerimis Dingin",     icon: "cloudRain" },
+  57: { label: "Gerimis Dingin Lebat", icon: "cloudRain" },
+  61: { label: "Hujan Ringan",       icon: "cloudRain" },
+  63: { label: "Hujan Sedang",       icon: "cloudRain" },
+  65: { label: "Hujan Lebat",        icon: "cloudRain" },
+  66: { label: "Hujan Dingin",       icon: "cloudRain" },
+  67: { label: "Hujan Dingin Lebat", icon: "cloudRain" },
+  71: { label: "Salju Ringan",       icon: "cloudSnow" },
+  73: { label: "Salju",              icon: "cloudSnow" },
+  75: { label: "Salju Lebat",        icon: "cloudSnow" },
+  77: { label: "Beras Salju",        icon: "cloudSnow" },
+  80: { label: "Hujan Lokal",        icon: "cloudRain" },
+  81: { label: "Hujan Lokal Sedang", icon: "cloudRain" },
+  82: { label: "Hujan Lokal Deras",  icon: "cloudRain" },
+  85: { label: "Salju Lokal",        icon: "cloudSnow" },
+  86: { label: "Salju Lokal Deras",  icon: "cloudSnow" },
+  95: { label: "Hujan Badai",        icon: "cloudLightning" },
+  96: { label: "Badai + Es",         icon: "cloudLightning" },
+  99: { label: "Badai Petir Hebat",  icon: "cloudLightning" }
 };
+
+/** Fallback saat kode cuaca tidak dikenal / API gagal. */
+const WEATHER_FALLBACK = { label: "Tidak diketahui", icon: "cloud" };
 
 /**
  * Ambil cuaca terkini di lokasi yang dikonfigurasi.
@@ -83,7 +105,7 @@ const WEATHER_CODES = {
 export const getWeather = async () => {
   const data = await fetchJSON(API_ENDPOINTS.weather);
   const w = data.current_weather;
-  const meta = WEATHER_CODES[w.weathercode] ?? { label: "Tidak diketahui", icon: "❓" };
+  const meta = WEATHER_CODES[w.weathercode] ?? WEATHER_FALLBACK;
 
   /* Open-Meteo mengembalikan current_weather.time sebagai STRING ISO
      (contoh: "2026-10-14T23:15"), BUKAN Unix timestamp.
@@ -173,7 +195,7 @@ export const getAllDashboardDataSafe = async () => {
     location: LOCATION.name,
     temperature: null,
     label: "Data tidak tersedia",
-    icon: "📡",
+    icon: "cloudFog",
     windSpeed: null,
     time: null
   };

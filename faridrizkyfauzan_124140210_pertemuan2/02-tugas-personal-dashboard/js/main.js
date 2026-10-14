@@ -18,6 +18,7 @@ import { Storage } from "./modules/storage.js";
 import { getAllDashboardDataSafe, refreshQuote } from "./modules/api.js";
 import { TASK_CATEGORIES, DEFAULT_PROFILE } from "./modules/constants.js";
 import { escapeHTML } from "./modules/utils.js";
+import { icon } from "./modules/icons.js";
 
 import {
   renderTaskList,
@@ -53,12 +54,27 @@ const uiState = {
 
 /* Shorthand query selector — arrow function */
 const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
 /* =========================================================
    RENDER — satu fungsi untuk menggambar seluruh UI
    ========================================================= */
 
+/**
+ * Ganti setiap elemen ber-atribut [data-icon] dengan SVG asli.
+ *
+ * Dipakai untuk ikon di HTML statis (index.html) supaya markup-nya
+ * tetap ringkas - cukup tulis data-icon="namaIkon".
+ */
+function hydrateIcons(root = document) {
+  $$("[data-icon]", root).forEach((el) => {
+    const name = el.dataset.icon;
+    const size = Number(el.dataset.size) || 16;
+    el.innerHTML = icon(name, size);
+    el.removeAttribute("data-icon");
+    el.removeAttribute("data-size");
+  });
+}
 function render() {
   const filters = app.filters;
   const visibleTasks = app.visibleTasks;
@@ -131,8 +147,8 @@ function openTaskModal(task = null) {
 
   uiState.editingTaskId = task?.id ?? null;
 
-  $("#taskModalTitle").textContent = task ? "✏️ Edit Tugas" : "➕ Tambah Tugas Baru";
-  $("#taskSubmitBtn").textContent = task ? "💾 Simpan Perubahan" : "➕ Tambah Tugas";
+  $("#taskModalTitle").innerHTML = task ? "Edit tugas" : "Tambah tugas baru";
+  $("#taskSubmitBtn").innerHTML = task ? `${icon("check", 14)} Simpan perubahan` : `${icon("plus", 14)} Tambah tugas`;
 
   // Reset form lalu isi dengan data tugas bila mode edit
   form.reset();
@@ -169,7 +185,7 @@ function openNoteModal(note = null) {
 
   uiState.editingNoteId = note?.id ?? null;
 
-  $("#noteModalTitle").textContent = note ? "✏️ Edit Catatan" : "📝 Tulis Catatan";
+  $("#noteModalTitle").innerHTML = note ? "Edit catatan" : "Tulis catatan";
   form.reset();
 
   if (note) {
@@ -317,7 +333,7 @@ function handleTaskSubmit(event) {
   }
 
   button.classList.add("is-loading");
-  button.textContent = "Menyimpan…";
+  button.innerHTML = `<span class="spinner spinner--xs"></span> Menyimpan`;
 
   /* Kumpulkan nilai form menjadi satu objek.
      PENTING: ambil .value/.checked SEBELUM masuk setTimeout,
@@ -561,13 +577,15 @@ function handleSortChange(event) {
    ========================================================= */
 
 function init() {
-  // Isi dropdown kategori (pakai template literal + map)
+  /* Isi dropdown kategori.
+     Catatan: elemen <option> hanya bisa menampilkan TEKS, bukan SVG,
+     jadi di sini sengaja tidak dipakai ikon (seperti shadcn Select). */
   const categoryOptions = TASK_CATEGORIES.map(
-    ({ value, label, icon }) => `<option value="${value}">${icon} ${escapeHTML(label)}</option>`
+    ({ value, label }) => `<option value="${value}">${escapeHTML(label)}</option>`
   ).join("");
 
   // Tempelkan opsi kategori ke dropdown form tugas
-  $("[name='category']").innerHTML += categoryOptions;
+  $("[name='category']").innerHTML = categoryOptions;
 
   // Opsi warna catatan
   $("#noteColorBox").innerHTML = renderNoteColors();
@@ -580,8 +598,9 @@ function init() {
      TANPA baris ini, UI tidak pernah diperbarui setelah state berubah. */
   app.subscribe(render);
 
-  // Render pertama
+  // Render pertama + hidrasi ikon pada HTML statis
   render();
+  hydrateIcons();
 
   // ---- Listener form ----
   $("#taskForm").addEventListener("submit", handleTaskSubmit);

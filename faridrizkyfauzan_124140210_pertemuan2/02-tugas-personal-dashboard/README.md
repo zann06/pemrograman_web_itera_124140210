@@ -52,6 +52,86 @@ Mahasiswa umumnya punya masalah yang **sama berulang setiap semester**: tugas me
 | 💾 **Data lokal & privat** — tidak ada akun, tidak ada server, data tidak pernah meninggalkan browser |
 | 🔁 **Seeding dari API** — kali pertama dibuka, 6 tugas contoh otomatis terisi dari JSONPlaceholder |
 
+### Tema Visual: shadcn/ui + Tanpa Emoji
+
+Antarmuka mengikuti **[shadcn/ui](https://ui.shadcn.com/)** — yang sebenarnya
+hanya kumpulan class + token warna, bukan library. Di sini pola yang sama
+diterapkan murni dengan CSS tanpa framework.
+
+**Design token** — semua warna adalah custom property HSL semantik di satu blok:
+
+```css
+:root {
+  --background:       0 0% 100%;       /* card & halaman        */
+  --foreground:       240 10% 3.9%;    /* teks utama            */
+  --muted:            240 4.8% 95.9%;  /* latar generator       */
+  --muted-foreground: 240 3.8% 46.1%;  /* teks sekunder         */
+  --border:           240 5.9% 90%;    /* garis 1px             */
+  --primary:          240 5.9% 10%;    /* netral gelap          */
+  --destructive:      0 72.2% 50.6%;   /* hanya aksi destruktif */
+  --radius: 8px;
+}
+```
+
+Mengganti tema (misalnya ke dark mode) cukup menulis ulang nilai-nilai ini —
+tidak ada warna yang ditulis langsung di dalam komponen.
+
+**Ciri khas yang diimiterasi:**
+
+| Aspek | shadcn/ui | Implementasi di sini |
+|---|---|---|
+| Warna | Abu-abu netral | Token HSL di atas |
+| Border | Tipis 1px, radius 8px | `border: 1px solid hsl(var(--border))` |
+| Shadow | Sangat subtle | 4 tingkat, opacity 0.05 - 0.12 |
+| Tipografi | Inter, padat | 13.5px, `line-height: 1.55` |
+| Tombol | 32px, variant primary / outline / ghost | Modifier class `btn--primary`, `btn--outline`, `btn--ghost` |
+| Badge | Pil kecil, warna lembut | `data-tone` + palet HSL |
+| Ikon | Lucide, 24x24 stroke 2 | `js/modules/icons.js` |
+
+### Kenapa Emoji Diganti SVG
+
+Aplikasi ini **semuanya tanpa emoji** (sudah diverifikasi otomatis: 0 kemunculan
+di seluruh file HTML, CSS, dan JS).
+
+1. **Tampilan berbeda antar OS** — emoji di Windows, macOS, dan Android punya
+   gaya berbeda, sehingga desain tidak konsisten.
+2. **Warnanya mencolok** — sulit diseimbangkan dengan palet netral shadcn.
+3. **Tidak bisa di-style** — SVG memakai `stroke: currentColor` sehingga ikut
+   warna teks induknya dan otomatis cocok bila tema diganti.
+4. **Ukurannya seragam** — diatur lewat atribut `width` / `height`.
+
+### `js/modules/icons.js`
+
+Modul baru berisi **40+ ikon** bergaya Lucide dalam bentuk string, supaya bisa
+dipakai langsung di dalam template literal:
+
+```js
+import { icon } from "./modules/icons.js";
+
+icon("plus");                 // 16px, ukuran default
+icon("trash", 14, "my-cls");  // 14px + class tambahan
+```
+
+Setiap ikon menghasilkan markup seperti ini:
+
+```html
+<svg class="icon" width="16" height="16" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">...</svg>
+```
+
+Kalau nama ikon tidak dikenal, fungsi **tidak melempar error** — ia mengembalikan
+ikon cadangan, sehingga satu salah ketik tidak bisa menjatuhkan aplikasi.
+
+Untuk ikon pada HTML statis dipakai atribut `data-icon`, yang dihidrasi sekali
+saat `init()` berjalan (lihat `hydrateIcons()` di `main.js`):
+
+```html
+<button class="btn btn--primary">
+  <span data-icon="plus" data-size="14"></span> Tambah tugas
+</button>
+```
+
 ### Prinsip Desain
 
 1. **Zero backend** — 100% vanilla JS + `localStorage`, mudah di-host di GitHub Pages.
@@ -231,7 +311,7 @@ pemrograman_web_itera_124140210/          # root repository GitHub
         ├── LICENSE                     # Lisensi MIT
         ├── .gitignore                  # Abaikan file OS/editor
         ├── css/
-        │   └── style.css               # 20 bagian styling (design token, responsif, print)
+        │   └── style.css               # Tema shadcn/ui (design token HSL)
         ├── docs/                       # Folder untuk screenshot laporan
         │   └── README-screenshots.txt  # Panduan nama file screenshot
         └── js/
@@ -241,6 +321,7 @@ pemrograman_web_itera_124140210/          # root repository GitHub
                 ├── classes.js          # class TaskItem & class DashboardApp
                 ├── storage.js          # class Storage (wrapper localStorage)
                 ├── api.js              # Async/Await + integrasi 3 API publik
+                ├── icons.js            # 40+ ikon SVG gaya Lucide (pengganti emoji)
                 ├── constants.js        # Konfigurasi terpusat (kategori, prioritas, endpoint)
                 └── utils.js            # 15+ arrow function helper
 ```
@@ -655,6 +736,8 @@ Dihitung otomatis dari tabel di bawah. Satu baris kode bisa masuk lebih dari sat
 | **Aksesibilitas** | ARIA, keyboard, focus management |
 | **Ekspor JSON** | Fitur backup |
 | **Deteksi keterlambatan** | Badge otomatis "Terlambat N hari" |
+| **Tema shadcn/ui** | Design token HSL semantik, border 1px, radius kecil, tanpa gradien |
+| **Tanpa emoji** | Semua ikon memakai SVG gaya Lucide (24×24, `stroke: currentColor`) |
 
 ### Tantangan Kreatif — Terpenuhi
 

@@ -11,6 +11,10 @@
    - DESTRUCTURING     -> di parameter & di body
    - SPREAD OPERATOR   -> menyalin array saat render
    - MAP/FILTER        -> untuk merender daftar
+
+   GAYA VISUAL:
+   Mengikuti tema shadcn/ui — netral, border tipis, tanpa warna-warna
+   berani, dan tanpa emoji. Semua ikon memakai SVG dari modules/icons.js.
    ========================================================= */
 
 import {
@@ -26,34 +30,40 @@ import {
   truncate
 } from "./modules/utils.js";
 
+import { icon } from "./modules/icons.js";
+
 /* =========================================================
    1. KOMPONEN KECIL (reusable snippets)
    ========================================================= */
 
 /** Avatar inisial mahasiswa */
-export const renderAvatar = ({ name = "?", size = 44 } = {}) => `
+export const renderAvatar = ({ name = "?", size = 40 } = {}) => `
   <div class="avatar" style="--avatar-size:${size}px" aria-hidden="true">
     ${getInitials(name)}
   </div>
 `;
 
 /** Kartu statistik */
-export const renderStatCard = ({ label, value, hint = "", tone = "blue", icon = "" }) => `
-  <article class="stat-card stat-card--${tone}">
-    <div class="stat-card__icon">${icon}</div>
+export const renderStatCard = ({ label, value, hint = "", tone = "default", iconName = "dashboard" }) => `
+  <article class="stat-card" data-tone="${tone}">
+    <div class="stat-card__icon">${icon(iconName, 16)}</div>
     <div class="stat-card__body">
       <span class="stat-card__value">${value}</span>
       <span class="stat-card__label">${escapeHTML(label)}</span>
-      ${hint ? `<span class="stat-card__hint">${escapeHTML(hint)}` : ""}
+      ${hint ? `<span class="stat-card__hint">${escapeHTML(hint)}</span>` : ""}
     </div>
   </article>
 `;
 
 /** Bar progres penyelesaian */
 export const renderProgressBar = (rate) => `
-  <div class="progress" role="progressbar" aria-valuenow="${rate}" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress__fill" style="width:${Math.max(0, Math.min(100, rate))}%"></div>
-    <span class="progress__text">${rate}% selesai</span>
+  <div class="progress-wrap">
+    <div class="progress" role="progressbar"
+         aria-valuenow="${rate}" aria-valuemin="0" aria-valuemax="100"
+         aria-label="Progres penyelesaian tugas">
+      <div class="progress__fill" style="width:${Math.max(0, Math.min(100, rate))}%"></div>
+    </div>
+    <span class="progress__text">${rate}%</span>
   </div>
 `;
 
@@ -63,28 +73,45 @@ export const renderProgressBar = (rate) => `
  * PENTING: `daysRemaining` adalah ANGKA (hasil hitungan TaskItem),
  * bukan objek Date. Karena itu teksnya dibuat langsung dari angka —
  * jangan pernah meneruskannya ke formatRelative() yang menerima Date.
- * (Kalau nekat, angka seperti 5 akan dibaca sebagai timestamp 1970.)
  */
 const renderDueBadge = ({ isOverdue, isUrgent, daysRemaining }) => {
   // Tanpa tenggat
   if (daysRemaining === null) {
-    return `<span class="badge badge--muted">Tanpa tenggat</span>`;
+    return `<span class="badge" data-tone="muted">Tanpa tenggat</span>`;
   }
 
   // Sudah lewat tenggat
   if (isOverdue) {
-    return `<span class="badge badge--danger">⏰ Terlambat ${Math.abs(daysRemaining)} hari</span>`;
+    return `<span class="badge" data-tone="danger">${icon("warning", 12)} Terlambat ${Math.abs(daysRemaining)} hari</span>`;
   }
 
   // Mendesak: hari ini / besok
   if (isUrgent) {
     const label = daysRemaining === 0 ? "Hari ini" : daysRemaining === 1 ? "Besok" : `${daysRemaining} hari lagi`;
-    return `<span class="badge badge--warning">🔥 ${label}</span>`;
+    return `<span class="badge" data-tone="warning">${icon("flame", 12)} ${label}</span>`;
   }
 
   // Masih lama
-  return `<span class="badge badge--info">📅 ${daysRemaining} hari lagi</span>`;
+  return `<span class="badge" data-tone="info">${icon("calendar", 12)} ${daysRemaining} hari lagi</span>`;
 };
+
+/**
+ * Tombol ikon-only (dipakai di header widget, kartu tugas, catatan, jadwal).
+ * @param {object} o
+ * @param {string} o.action    nilai untuk data-action
+ * @param {string} o.iconName  nama ikon dari modules/icons.js
+ * @param {string} o.label     teks untuk title & aria-label
+ * @param {string} [o.variant] class tambahan
+ * @param {string} [o.dataId]  nilai untuk data-id (opsional)
+ */
+export const renderIconButton = ({ action, iconName, label, variant = "", dataId = "" }) => `
+  <button class="icon-btn ${variant}" type="button"
+          data-action="${action}"
+          ${dataId ? `data-id="${escapeHTML(dataId)}"` : ""}
+          title="${escapeHTML(label)}" aria-label="${escapeHTML(label)}">
+    ${icon(iconName, 15)}
+  </button>
+`;
 
 /** Pil filter */
 export const renderCategoryFilter = (activeCategory) => `
@@ -92,11 +119,10 @@ export const renderCategoryFilter = (activeCategory) => `
     <button class="filter-chip ${activeCategory === "all" ? "is-active" : ""}"
             data-filter="category" data-value="all" type="button">Semua</button>
     ${TASK_CATEGORIES.map(
-      ({ value, label, icon }) => `
+      ({ value, label, icon: iconName }) => `
       <button class="filter-chip ${activeCategory === value ? "is-active" : ""}"
-              data-filter="category" data-value="${value}" type="button"
-              style="--chip-color:${escapeHTML(value)}">
-        ${icon} ${escapeHTML(label)}
+              data-filter="category" data-value="${value}" type="button">
+        ${icon(iconName, 13)} ${escapeHTML(label)}
       </button>`
     ).join("")}
   </div>
@@ -106,12 +132,11 @@ export const renderCategoryFilter = (activeCategory) => `
 export const renderPriorityFilter = (activePriority) => `
   <div class="filter-chips" role="group" aria-label="Filter prioritas">
     <button class="filter-chip ${activePriority === "all" ? "is-active" : ""}"
-            data-filter="priority" data-value="all" type="button">Semua Prioritas</button>
+            data-filter="priority" data-value="all" type="button">Semua prioritas</button>
     ${PRIORITIES.map(
-      ({ value, label, color }) => `
+      ({ value, label }) => `
       <button class="filter-chip ${activePriority === value ? "is-active" : ""}"
-              data-filter="priority" data-value="${value}" type="button"
-              style="--chip-color:${color}">
+              data-filter="priority" data-value="${value}" type="button">
         ${escapeHTML(label)}
       </button>`
     ).join("")}
@@ -149,23 +174,27 @@ export const renderTaskCard = (task) => {
         <label class="task-check" title="Tandai selesai / belum">
           <input type="checkbox" data-action="toggle" ${completed ? "checked" : ""}
                  aria-label="Tandai '${escapeHTML(title)}' selesai" />
-          <span class="task-check__box" aria-hidden="true"></span>
+          <span class="task-check__box" aria-hidden="true">
+            ${icon("check", 13)}
+          </span>
         </label>
+
         <div class="task-card__heading">
           <h4 class="task-card__title">${escapeHTML(title)}</h4>
           <div class="task-card__meta">
-            <span class="badge" style="--badge-color:${categoryMeta.color}">
-              ${categoryMeta.icon} ${escapeHTML(categoryMeta.label)}
+            <span class="badge" data-tone="${categoryMeta.tone}">
+              ${icon(categoryMeta.icon, 12)} ${escapeHTML(categoryMeta.label)}
             </span>
-            <span class="badge" style="--badge-color:${priorityMeta.color}">
-              ⬆ ${escapeHTML(priorityMeta.label)}
+            <span class="badge" data-tone="${priorityMeta.tone}">
+              ${icon(priorityMeta.icon, 12)} ${escapeHTML(priorityMeta.label)}
             </span>
             ${renderDueBadge({ isOverdue, isUrgent, daysRemaining })}
           </div>
         </div>
+
         <div class="task-card__actions">
-          <button class="icon-btn" data-action="edit" type="button" title="Edit tugas">✏️</button>
-          <button class="icon-btn icon-btn--danger" data-action="delete" type="button" title="Hapus tugas">🗑️</button>
+          ${renderIconButton({ action: "edit", iconName: "pencil", label: "Edit tugas" })}
+          ${renderIconButton({ action: "delete", iconName: "trash", label: "Hapus tugas", variant: "icon-btn--danger" })}
         </div>
       </div>
 
@@ -188,12 +217,12 @@ export const renderTaskList = (tasks, isFiltered = false) => {
   if (!tasks || tasks.length === 0) {
     return `
       <div class="empty-state">
-        <div class="empty-state__icon">${isFiltered ? "🔍" : "📝"}</div>
+        <div class="empty-state__icon">${icon(isFiltered ? "search" : "clipboard", 22)}</div>
         <h3>${isFiltered ? "Tidak ada tugas yang cocok" : "Belum ada tugas"}</h3>
         <p>${
           isFiltered
-            ? "Coba ubah kata kunci atau reset filter."
-            : 'Tambahkan tugas pertama Anda lewat form di atas, atau klik "Isi dari API".'
+            ? "Coba ubah kata kunci atau atur ulang filter."
+            : 'Tambahkan tugas pertama lewat tombol "Tambah tugas" di atas.'
         }</p>
       </div>
     `;
@@ -211,52 +240,61 @@ export const renderWeather = (weather, { loading = false, error = null } = {}) =
   if (loading) {
     return `
       <article class="widget widget--weather">
-        <div class="widget__header">
-          <h3>🌤️ Cuaca di ${escapeHTML(LOCATION.name)}</h3>
-          <button class="icon-btn" data-action="reload-weather" type="button" title="Muat ulang">🔄</button>
-        </div>
-        <div class="widget__loading"><span class="spinner"></span> Mengambil data cuaca…</div>
+        <header class="widget__header">
+          <h3>Cuaca di ${escapeHTML(LOCATION.name)}</h3>
+          ${renderIconButton({ action: "reload-weather", iconName: "refresh", label: "Muat ulang cuaca" })}
+        </header>
+        <div class="widget__loading"><span class="spinner"></span> Mengambil data cuaca</div>
       </article>
     `;
   }
 
   if (error || weather?.temperature === null) {
     return `
-      <article class="widget widget--weather widget--error">
-        <div class="widget__header">
-          <h3>🌤️ Cuaca di ${escapeHTML(LOCATION.name)}</h3>
-          <button class="icon-btn" data-action="reload-weather" type="button" title="Coba lagi">🔄</button>
-        </div>
+      <article class="widget widget--weather" data-tone="muted">
+        <header class="widget__header">
+          <h3>Cuaca di ${escapeHTML(LOCATION.name)}</h3>
+          ${renderIconButton({ action: "reload-weather", iconName: "refresh", label: "Coba lagi" })}
+        </header>
         <div class="widget__empty">
-          <p>⚠️ ${escapeHTML(error ?? "Data cuaca tidak dapat dimuat.")}</p>
-          <small>Pastikan ada koneksi internet, lalu klik 🔄.</small>
+          <p class="widget__empty-title">${icon("warning", 14)} Gagal memuat cuaca</p>
+          <small>${escapeHTML(error ?? "Data tidak dapat diakses.")}</small>
         </div>
       </article>
     `;
   }
 
-  const { icon, label, temperature, windSpeed, time } = weather;
+  const { icon: iconName, label, temperature, windSpeed, time } = weather;
 
   return `
     <article class="widget widget--weather">
-      <div class="widget__header">
-        <h3>🌤️ Cuaca di ${escapeHTML(weather.location)}</h3>
-        <button class="icon-btn" data-action="reload-weather" type="button" title="Muat ulang">🔄</button>
-      </div>
+      <header class="widget__header">
+        <h3>Cuaca di ${escapeHTML(weather.location)}</h3>
+        ${renderIconButton({ action: "reload-weather", iconName: "refresh", label: "Muat ulang cuaca" })}
+      </header>
+
       <div class="weather">
         <div class="weather__main">
-          <span class="weather__icon">${icon}</span>
+          <span class="weather__icon">${icon(iconName, 30)}</span>
           <div>
-            <strong class="weather__temp">${temperature}°C</strong>
+            <strong class="weather__temp">${temperature}&deg;C</strong>
             <span class="weather__label">${escapeHTML(label)}</span>
           </div>
         </div>
+
         <ul class="weather__details">
-          <li><span>💨 Angin</span><strong>${windSpeed} km/h</strong></li>
-          <li><span>🕒 Update</span><strong>${escapeHTML(time ?? "—")}</strong></li>
+          <li>
+            <span>${icon("wind", 13)} Angin</span>
+            <strong>${windSpeed} km/h</strong>
+          </li>
+          <li>
+            <span>${icon("clock", 13)} Diperbarui</span>
+            <strong>${escapeHTML(time ?? "-")}</strong>
+          </li>
         </ul>
       </div>
-      <small class="widget__source">Sumber: Open-Meteo API (gratis, tanpa API key)</small>
+
+      <small class="widget__source">Sumber: Open-Meteo (gratis, tanpa API key)</small>
     </article>
   `;
 };
@@ -269,25 +307,29 @@ export const renderQuote = (quote, { loading = false, error = null } = {}) => {
   if (loading) {
     return `
       <article class="widget widget--quote">
-        <div class="widget__loading"><span class="spinner"></span> Mengambil kutipan…</div>
+        <div class="widget__loading"><span class="spinner"></span> Mengambil kutipan</div>
       </article>
     `;
   }
 
   if (error || !quote?.quote) {
     return `
-      <article class="widget widget--quote widget--error">
-        <blockquote>⚠️ ${escapeHTML(error ?? "Kutipan tidak dapat dimuat.")}</blockquote>
-        <cite>— offline —</cite>
+      <article class="widget widget--quote" data-tone="muted">
+        <p class="widget__empty-title">${icon("warning", 14)} Kutipan tidak dapat dimuat</p>
+        <small>${escapeHTML(error ?? "Periksa koneksi internet Anda.")}</small>
       </article>
     `;
   }
 
   return `
     <article class="widget widget--quote">
-      <blockquote>“${escapeHTML(truncate(quote.quote, 180))}”</blockquote>
-      <cite>— ${escapeHTML(quote.author)}</cite>
-      <button class="btn btn--tiny" data-action="refresh-quote" type="button">🔄 Kutipan lain</button>
+      <blockquote>${escapeHTML(truncate(quote.quote, 180))}</blockquote>
+      <div class="widget__quote-foot">
+        <cite>${escapeHTML(quote.author)}</cite>
+        <button class="btn btn--tiny" data-action="refresh-quote" type="button">
+          ${icon("refresh", 13)} Kutipan lain
+        </button>
+      </div>
     </article>
   `;
 };
@@ -301,7 +343,11 @@ export const renderSchedule = (schedule = []) => {
   const todayName = DAYS[(new Date().getDay() + 6) % 7];
 
   if (schedule.length === 0) {
-    return `<p class="widget__empty">Belum ada jadwalkuliah. Tambahkan melalui form jadwal.</p>`;
+    return `
+      <p class="widget__empty">
+        ${icon("graduation", 14)} Belum ada jadwal kuliah.
+      </p>
+    `;
   }
 
   return `
@@ -309,18 +355,30 @@ export const renderSchedule = (schedule = []) => {
       ${schedule
         .map(
           (entry) => `
-          <li class="schedule-item ${entry.day === todayName ? "is-today" : ""}" data-id="${escapeHTML(entry.id)}">
+          <li class="schedule-item ${entry.day === todayName ? "is-today" : ""}"
+              data-id="${escapeHTML(entry.id)}">
             <div class="schedule-item__day">
               <strong>${escapeHTML(entry.day.slice(0, 3))}</strong>
               <span>${escapeHTML(entry.time)}</span>
             </div>
+
             <div class="schedule-item__info">
               <h4>${escapeHTML(entry.course)}</h4>
-              <p>🚪 ${escapeHTML(entry.room)} · 👤 ${escapeHTML(entry.lecturer)}</p>
+              <p>
+                <span>${icon("doorOpen", 11)} ${escapeHTML(entry.room)}</span>
+                <span>${icon("user", 11)} ${escapeHTML(entry.lecturer)}</span>
+              </p>
             </div>
-            ${entry.day === todayName ? '<span class="badge badge--info">Hari ini</span>' : ""}
-            <button class="icon-btn icon-btn--danger" data-action="delete-schedule"
-                    data-id="${escapeHTML(entry.id)}" type="button" title="Hapus">🗑️</button>
+
+            ${entry.day === todayName ? `<span class="badge" data-tone="info">Hari ini</span>` : ""}
+
+            ${renderIconButton({
+              action: "delete-schedule",
+              iconName: "trash",
+              label: "Hapus slot jadwal",
+              variant: "icon-btn--danger",
+              dataId: entry.id
+            })}
           </li>`
         )
         .join("")}
@@ -332,11 +390,15 @@ export const renderSchedule = (schedule = []) => {
    6. WIDGET CATATAN
    ========================================================= */
 
-const NOTE_COLORS = ["yellow", "blue", "green", "pink", "purple"];
+const NOTE_TONES = ["yellow", "blue", "green", "pink", "purple"];
 
 export const renderNotes = (notes = []) => {
   if (notes.length === 0) {
-    return `<p class="widget__empty">Belum ada catatan. Tulis ide atau pengingat di form catatan.</p>`;
+    return `
+      <p class="widget__empty">
+        ${icon("pencil", 14)} Belum ada catatan.
+      </p>
+    `;
   }
 
   return `
@@ -344,17 +406,27 @@ export const renderNotes = (notes = []) => {
       ${notes
         .map(
           (note) => `
-          <article class="note note--${escapeHTML(note.color)}" data-id="${escapeHTML(note.id)}">
+          <article class="note" data-tone="${NOTE_TONES.includes(note.color) ? note.color : "yellow"}"
+                   data-id="${escapeHTML(note.id)}">
             <header class="note__head">
               <h4>${escapeHTML(note.title)}</h4>
               <div class="note__actions">
-                <button class="icon-btn" data-action="edit-note" data-id="${escapeHTML(note.id)}"
-                        type="button" title="Edit">✏️</button>
-                <button class="icon-btn icon-btn--danger" data-action="delete-note"
-                        data-id="${escapeHTML(note.id)}" type="button" title="Hapus">🗑️</button>
+                ${renderIconButton({
+                  action: "edit-note",
+                  iconName: "pencil",
+                  label: "Edit catatan",
+                  dataId: note.id
+                })}
+                ${renderIconButton({
+                  action: "delete-note",
+                  iconName: "trash",
+                  label: "Hapus catatan",
+                  variant: "icon-btn--danger",
+                  dataId: note.id
+                })}
               </div>
             </header>
-            <p class="note__body">${escapeHTML(note.body) || "<i>(kosong)</i>"}</p>
+            <p class="note__body">${escapeHTML(note.body) || "<em>(kosong)</em>"}</p>
             <footer class="note__meta">${escapeHTML(formatDate(note.createdAt))}</footer>
           </article>`
         )
@@ -365,11 +437,11 @@ export const renderNotes = (notes = []) => {
 
 /** Opsi warna untuk form catatan */
 export const renderNoteColors = () =>
-  NOTE_COLORS.map(
-    (color, index) => `
+  NOTE_TONES.map(
+    (tone, index) => `
       <label class="color-option">
-        <input type="radio" name="noteColor" value="${color}" ${index === 0 ? "checked" : ""} />
-        <span class="color-swatch color-swatch--${color}"></span>
+        <input type="radio" name="noteColor" value="${tone}" ${index === 0 ? "checked" : ""} />
+        <span class="color-swatch" data-tone="${tone}"></span>
       </label>`
   ).join("");
 
@@ -379,7 +451,7 @@ export const renderNoteColors = () =>
 
 export const renderProfile = ({ name, nim, major, semester }) => `
   <div class="profile">
-    ${renderAvatar({ name, size: 56 })}
+    ${renderAvatar({ name, size: 44 })}
     <div class="profile__info">
       <h2>${escapeHTML(name)}</h2>
       <p>
@@ -388,7 +460,9 @@ export const renderProfile = ({ name, nim, major, semester }) => `
         <span>Semester ${escapeHTML(String(semester))}</span>
       </p>
     </div>
-    <button class="btn btn--tiny" data-action="edit-profile" type="button">✏️ Edit Profil</button>
+    <button class="btn btn--outline btn--sm" data-action="edit-profile" type="button">
+      ${icon("pencil", 13)} Edit profil
+    </button>
   </div>
 `;
 
@@ -398,13 +472,13 @@ export const renderProfile = ({ name, nim, major, semester }) => `
 
 export const renderStats = ({ total, done, undone, overdue, completionRate, byCategory }) => {
   const categoryRows = TASK_CATEGORIES
-    .map(({ value, label, icon, color }) => {
+    .map(({ value, label, icon: iconName }) => {
       const count = byCategory?.[value] ?? 0;
       const percent = total === 0 ? 0 : Math.round((count / total) * 100);
       return `
         <li class="cat-row">
-          <span class="cat-row__label">${icon} ${escapeHTML(label)}</span>
-          <div class="cat-row__bar"><span style="width:${percent}%; background:${color}"></span></div>
+          <span class="cat-row__label">${icon(iconName, 13)} ${escapeHTML(label)}</span>
+          <div class="cat-row__bar"><span style="width:${percent}%" data-tone="${value}"></span></div>
           <span class="cat-row__count">${count}</span>
         </li>`;
     })
@@ -412,16 +486,16 @@ export const renderStats = ({ total, done, undone, overdue, completionRate, byCa
 
   return `
     <section class="stats-grid">
-      ${renderStatCard({ label: "Total Tugas", value: total, icon: "📋", tone: "blue", hint: "terdaftar" })}
-      ${renderStatCard({ label: "Selesai", value: done, icon: "✅", tone: "green", hint: "tuntas" })}
-      ${renderStatCard({ label: "Belum Selesai", value: undone, icon: "⏳", tone: "amber", hint: "dikerjakan" })}
-      ${renderStatCard({ label: "Terlambat", value: overdue, icon: "⏰", tone: "red", hint: "lewat tenggat" })}
+      ${renderStatCard({ label: "Total tugas",     value: total,   iconName: "clipboard",  tone: "default" })}
+      ${renderStatCard({ label: "Selesai",         value: done,    iconName: "circleCheck", tone: "success" })}
+      ${renderStatCard({ label: "Belum selesai",   value: undone,  iconName: "clock",      tone: "warning" })}
+      ${renderStatCard({ label: "Terlambat",       value: overdue, iconName: "warning",    tone: "danger" })}
     </section>
 
     <section class="card card--progress">
       <header class="card__header">
-        <h3>📈 Progres Tugas</h3>
-        <span class="card__meta">${done} dari ${total} tugas selesai</span>
+        <h3>Progres tugas</h3>
+        <span class="card__meta">${done} dari ${total} selesai</span>
       </header>
       ${renderProgressBar(completionRate)}
       <ul class="cat-list">${categoryRows}</ul>
@@ -435,16 +509,23 @@ export const renderStats = ({ total, done, undone, overdue, completionRate, byCa
 
 export const renderStorageInfo = (stats) => `
   <div class="storage-info ${stats.available ? "" : "is-offline"}">
-    <strong>💾 Penyimpanan Lokal</strong>
+    <strong>${icon("hardDrive", 14)} Penyimpanan lokal</strong>
     <ul>
-      <li>Status: <code>${stats.available ? "localStorage aktif" : "fallback in-memory (browser memblokir storage)"}</code></li>
-      <li>Item tersimpan: <strong>${stats.items}</strong> (tugas + catatan + jadwal)</li>
-      <li>Jumlah key: <strong>${stats.keys}</strong> · Ukuran: <strong>${(stats.bytes / 1024).toFixed(2)} KB</strong></li>
-      ${stats.error ? `<li class="text-danger">⚠️ Error terakhir: ${escapeHTML(stats.error)}</li>` : ""}
+      <li>
+        Status
+        <code>${stats.available ? "localStorage aktif" : "fallback in-memory"}</code>
+      </li>
+      <li>Item tersimpan <strong>${stats.items}</strong> (tugas, catatan, jadwal)</li>
+      <li>Jumlah key <strong>${stats.keys}</strong> &middot; Ukuran <strong>${(stats.bytes / 1024).toFixed(2)} KB</strong></li>
+      ${stats.error ? `<li class="text-danger">${icon("warning", 12)} ${escapeHTML(stats.error)}</li>` : ""}
     </ul>
     <div class="storage-info__actions">
-      <button class="btn btn--tiny" data-action="export" type="button">⬇️ Ekspor JSON</button>
-      <button class="btn btn--tiny btn--danger" data-action="reset-all" type="button">🗑️ Reset Semua Data</button>
+      <button class="btn btn--outline btn--sm" data-action="export" type="button">
+        ${icon("download", 13)} Ekspor JSON
+      </button>
+      <button class="btn btn--outline btn--sm btn--danger" data-action="reset-all" type="button">
+        ${icon("trash", 13)} Reset semua data
+      </button>
     </div>
   </div>
 `;
@@ -465,7 +546,14 @@ export const showToast = (message, type = "success") => {
   if (!container) return;
 
   clearTimeout(toastTimerId);
-  container.innerHTML = `<div class="toast toast--${type}">${escapeHTML(message)}</div>`;
+
+  const iconName = type === "error" ? "warning" : type === "info" ? "info" : "check";
+  container.innerHTML = `
+    <div class="toast" data-tone="${type}" role="status">
+      ${icon(iconName, 15)}
+      <span>${escapeHTML(message)}</span>
+    </div>
+  `;
 
   toastTimerId = setTimeout(() => {
     container.innerHTML = "";
@@ -473,5 +561,4 @@ export const showToast = (message, type = "success") => {
 };
 
 /* Catatan: file ini sengaja TIDAK melakukan re-export.
-   Semua consumer mengimpor langsung dari modul asalnya
-   (modules/constants.js atau modules/utils.js), bukan dari app.js. */
+   Semua consumer mengimpor langsung dari modul asalnya. */

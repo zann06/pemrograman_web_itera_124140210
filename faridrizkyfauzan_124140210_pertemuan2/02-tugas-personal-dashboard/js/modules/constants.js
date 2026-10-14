@@ -30,20 +30,25 @@ export const LOCATION = {
   timezone: "Asia/Jakarta"
 };
 
-/** Daftar kategori tugas (dropdown + filter) */
+/**
+ * Daftar kategori tugas (dropdown + filter).
+ *
+ * Field `icon` berisi NAMA IKON (lihat modules/icons.js), bukan emoji.
+ * Renderer memanggil icon(meta.icon) untuk menghasilkan SVG.
+ */
 export const TASK_CATEGORIES = [
-  { value: "assignment", label: "Tugas", color: "#3b82f6", icon: "📝" },
-  { value: "exam", label: "Ujian", color: "#ef4444", icon: "📝" },
-  { value: "project", label: "Proyek", color: "#8b5cf6", icon: "🗂️" },
-  { value: "reading", label: "Bacaan", color: "#0ea5e9", icon: "📚" },
-  { value: "personal", label: "Pribadi", color: "#10b981", icon: "⭐" }
+  { value: "assignment", label: "Tugas",    icon: "clipboard", tone: "blue" },
+  { value: "exam",       label: "Ujian",    icon: "calendar",  tone: "red" },
+  { value: "project",    label: "Proyek",   icon: "folder",    tone: "violet" },
+  { value: "reading",    label: "Bacaan",   icon: "bookOpen",  tone: "cyan" },
+  { value: "personal",   label: "Pribadi",  icon: "star",      tone: "green" }
 ];
 
-/** Prioritas tugas */
+/** Daftar prioritas tugas */
 export const PRIORITIES = [
-  { value: "high", label: "Tinggi", color: "#ef4444", weight: 3 },
-  { value: "medium", label: "Sedang", color: "#f59e0b", weight: 2 },
-  { value: "low", label: "Rendah", color: "#10b981", weight: 1 }
+  { value: "high",   label: "Tinggi", tone: "red",    weight: 3, icon: "arrowUp" },
+  { value: "medium", label: "Sedang", tone: "amber",  weight: 2, icon: "arrowUp" },
+  { value: "low",    label: "Rendah", tone: "green",  weight: 1, icon: "arrowUp" }
 ];
 
 /** Jadwal kuliah default (bisa diedit lewat UI) */

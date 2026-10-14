@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Dashboard — Tugas Praktikum PAW 2</title>
+  <title>Student Dashboard — Praktikum PAW 2</title>
   <meta name="description" content="Personal Dashboard mahasiswa: manajemen tugas, catatan, jadwal kuliah, cuaca real-time, dan kutipan motivasi. Dibangun dengan JavaScript ES6+ (Classes, Async/Await, localStorage).">
-  <meta name="author" content="Mahasiswa PAW 2">
+  <meta name="author" content="Farid Rizky Fauzan">
 
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23181a1b%22 stroke-width=%222%22><rect width=%2218%22 height=%2218%22 x=%223%22 y=%223%22 rx=%222%22/><path d=%22M9 3v18M15 3v18M3 9h18M3 15h18%22/></svg>">
 </head>
 <body>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar">
     <div class="navbar__brand">
-      <span class="navbar__logo">📊</span>
+      <span class="navbar__logo" data-icon="dashboard" data-size="18"></span>
       <div>
         <strong>Student Dashboard</strong>
-        <small>Tugas Praktikum PAW 2 — JavaScript ES6+</small>
+        <small>Praktikum PAW 2 — JavaScript ES6+</small>
       </div>
     </div>
     <div class="navbar__meta">
       <span class="navbar__date" id="todayText">—</span>
-      <span class="navbar__badge">🟢 localStorage</span>
+      <span class="navbar__badge"><span class="dot"></span>localStorage</span>
     </div>
   </nav>
 
@@ -39,22 +39,29 @@
       <div id="statsBox" aria-live="polite"></div>
 
       <!-- ===== KUTIPAN MOTIVASI (API DummyJSON) ===== -->
-      <section class="card card--quote" id="quoteBox" aria-live="polite">
-        <div class="widget__loading"><span class="spinner"></span> Mengambil kutipan…</div>
+      <section id="quoteBox" aria-live="polite">
+        <div class="card widget__loading"><span class="spinner"></span> Mengambil kutipan</div>
       </section>
 
       <!-- ===== DAFTAR TUGAS ===== -->
       <section class="card card--tasks">
         <header class="card__header card__header--sticky">
-          <h3>📋 Daftar Tugas <span class="pill" id="taskCount">0 tugas</span></h3>
+          <h3>
+            <span data-icon="clipboard" data-size="15"></span>
+            Daftar tugas
+            <span class="pill" id="taskCount">0 tugas</span>
+          </h3>
+
           <div class="card__actions">
-            <button class="btn btn--tiny" data-action="seed-from-api" type="button"
-                    title="Ambil tugas contoh dari JSONPlaceholder API">🌐 Isi dari API</button>
-            <button class="btn btn--tiny btn--danger" data-action="clear-completed" type="button">
-              🧹 Bersihkan Selesai
+            <button class="btn btn--outline btn--sm" data-action="seed-from-api" type="button"
+                    title="Ambil tugas contoh dari JSONPlaceholder API">
+              <span data-icon="globe" data-size="13"></span> Isi dari API
             </button>
-            <button class="btn btn--primary" data-action="open-task-modal" type="button">
-              ➕ Tambah Tugas
+            <button class="btn btn--outline btn--sm" data-action="clear-completed" type="button">
+              <span data-icon="listX" data-size="13"></span> Bersihkan selesai
+            </button>
+            <button class="btn btn--primary btn--sm" data-action="open-task-modal" type="button">
+              <span data-icon="plus" data-size="14"></span> Tambah tugas
             </button>
           </div>
         </header>
@@ -62,25 +69,25 @@
         <!-- Toolbar pencarian, filter, sort -->
         <div class="toolbar">
           <div class="search">
-            <span aria-hidden="true">🔍</span>
-            <input type="search" id="searchInput" placeholder="Cari judul atau deskripsi tugas…"
+            <span data-icon="search" data-size="15" aria-hidden="true"></span>
+            <input type="search" id="searchInput" placeholder="Cari judul atau deskripsi tugas"
                    aria-label="Cari tugas" autocomplete="off">
           </div>
 
           <select id="sortSelect" aria-label="Urutkan tugas">
-            <option value="dueDate">Urutkan: Tenggat</option>
-            <option value="priority">Urutkan: Prioritas</option>
-            <option value="title">Urutkan: Judul (A-Z)</option>
-            <option value="createdAt">Urutkan: Terbaru</option>
+            <option value="dueDate">Urutkan: tenggat</option>
+            <option value="priority">Urutkan: prioritas</option>
+            <option value="title">Urutkan: judul (A-Z)</option>
+            <option value="createdAt">Urutkan: terbaru</option>
           </select>
         </div>
 
         <div class="filters">
           <div id="statusFilterBox" class="status-pills" role="group" aria-label="Filter status">
             <button class="status-pill is-active" data-status-filter="all" type="button">Semua</button>
-            <button class="status-pill" data-status-filter="undone" type="button">⏳ Belum</button>
-            <button class="status-pill" data-status-filter="done" type="button">✅ Selesai</button>
-            <button class="status-pill" data-status-filter="overdue" type="button">⏰ Terlambat</button>
+            <button class="status-pill" data-status-filter="undone" type="button">Belum selesai</button>
+            <button class="status-pill" data-status-filter="done" type="button">Selesai</button>
+            <button class="status-pill" data-status-filter="overdue" type="button">Terlambat</button>
           </div>
           <div id="categoryFilterBox"></div>
           <div id="priorityFilterBox"></div>
@@ -96,15 +103,17 @@
     <aside class="layout__sidebar">
 
       <!-- ===== CUACA (API Open-Meteo) ===== -->
-      <section class="card card--weather" id="weatherBox" aria-live="polite">
-        <div class="widget__loading"><span class="spinner"></span> Mengambil data cuaca…</div>
+      <section id="weatherBox" aria-live="polite">
+        <div class="card widget__loading"><span class="spinner"></span> Mengambil data cuaca</div>
       </section>
 
       <!-- ===== CATATAN ===== -->
       <section class="card card--notes">
         <header class="card__header">
-          <h3>📝 Catatan</h3>
-          <button class="btn btn--tiny" data-action="open-note-modal" type="button">➕ Tulis</button>
+          <h3><span data-icon="pencil" data-size="15"></span> Catatan</h3>
+          <button class="btn btn--outline btn--sm" data-action="open-note-modal" type="button">
+            <span data-icon="plus" data-size="13"></span> Tulis
+          </button>
         </header>
         <div id="notesBox" class="notes-box"></div>
       </section>
@@ -112,12 +121,12 @@
       <!-- ===== JADWAL KULIAH ===== -->
       <section class="card card--schedule">
         <header class="card__header">
-          <h3>🎓 Jadwal Kuliah</h3>
+          <h3><span data-icon="graduation" data-size="15"></span> Jadwal kuliah</h3>
         </header>
         <div id="scheduleBox"></div>
 
         <details class="disclosure">
-          <summary>➕ Tambah slot jadwal</summary>
+          <summary><span data-icon="plus" data-size="13"></span> Tambah slot jadwal</summary>
           <form id="scheduleForm" class="form form--compact">
             <label>
               Hari
@@ -143,7 +152,7 @@
               Pengampu
               <input type="text" name="lecturer" placeholder="Nama dosen" maxlength="60">
             </label>
-            <button type="submit" class="btn btn--primary field--full">Simpan Jadwal</button>
+            <button type="submit" class="btn btn--primary btn--sm field--full">Simpan jadwal</button>
           </form>
         </details>
       </section>
@@ -155,17 +164,19 @@
 
       <!-- ===== TEKNOLOGI YANG DIGUNAKAN ===== -->
       <section class="card card--stack">
-        <header class="card__header"><h3>🧪 Fitur ES6+</h3></header>
+        <header class="card__header">
+          <h3><span data-icon="code" data-size="15"></span> Fitur ES6+</h3>
+        </header>
         <ul class="stack-list">
           <li><code>let</code> &amp; <code>const</code> — deklarasi variabel aman</li>
           <li><code>class TaskItem</code> — model data tugas</li>
-          <li><code>class DashboardApp</code> — state management + CRUD</li>
+          <li><code>class DashboardApp</code> — state management &amp; CRUD</li>
           <li><code>class Storage</code> — wrapper <code>localStorage</code></li>
           <li><code>#privateField</code> — encapsulation (ES2022)</li>
-          <li>Arrow Functions — 30+ implementasi</li>
-          <li>Template Literals — seluruh rendering HTML</li>
-          <li>Destructuring — parameter & body fungsi</li>
-          <li>Spread &amp; Rest — pembaruan state immutable</li>
+          <li>Arrow functions — 30+ implementasi</li>
+          <li>Template literals — seluruh rendering HTML</li>
+          <li>Destructuring — parameter &amp; body fungsi</li>
+          <li>Spread &amp; rest — pembaruan state immutable</li>
           <li><code>async</code> / <code>await</code> — integrasi 3 API</li>
           <li><code>Promise.all</code> &amp; <code>allSettled</code> — paralel &amp; tahan gagal</li>
           <li><code>map</code> / <code>filter</code> / <code>reduce</code> / <code>sort</code></li>
@@ -179,11 +190,11 @@
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <p>
-      <strong>Tugas Praktikum PAW 2</strong> — Personal Dashboard.
-      Data tersimpan di <code>localStorage</code> browser Anda (tidak dikirim ke server mana pun).
-      Weather: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> ·
-      Quote: <a href="https://dummyjson.com" target="_blank" rel="noopener">DummyJSON</a> ·
-      Todos: <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener">JSONPlaceholder</a>
+      <strong>Praktikum PAW 2</strong> — Personal Dashboard.
+      Data tersimpan di <code>localStorage</code> browser Anda, tidak dikirim ke server mana pun.
+      Cuaca: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> &middot;
+      Kutipan: <a href="https://dummyjson.com" target="_blank" rel="noopener">DummyJSON</a> &middot;
+      Tugas: <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener">JSONPlaceholder</a>
     </p>
   </footer>
 
@@ -192,13 +203,15 @@
     <div class="modal__backdrop"></div>
     <div class="modal__box">
       <header class="modal__header">
-        <h2 id="taskModalTitle">➕ Tambah Tugas Baru</h2>
-        <button class="icon-btn" data-action="close-task-modal" type="button" aria-label="Tutup">✕</button>
+        <h2 id="taskModalTitle">Tambah tugas baru</h2>
+        <button class="icon-btn" data-action="close-task-modal" type="button" aria-label="Tutup">
+          <span data-icon="x" data-size="15"></span>
+        </button>
       </header>
 
       <form id="taskForm" class="form">
         <label class="field--full">
-          Judul Tugas <span class="required">*</span>
+          <span class="label-text">Judul tugas <span class="required">*</span></span>
           <input type="text" name="title" placeholder="Contoh: Tugas Praktikum JS Next Gen"
                  required maxlength="120" autocomplete="off">
         </label>
@@ -217,9 +230,9 @@
         <label>
           Prioritas
           <select name="priority">
-            <option value="high">🔴 Tinggi</option>
-            <option value="medium" selected>🟡 Sedang</option>
-            <option value="low">🟢 Rendah</option>
+            <option value="high">Tinggi</option>
+            <option value="medium" selected>Sedang</option>
+            <option value="low">Rendah</option>
           </select>
         </label>
 
@@ -235,7 +248,7 @@
 
         <footer class="modal__footer">
           <button type="button" class="btn btn--ghost" data-action="close-task-modal">Batal</button>
-          <button type="submit" class="btn btn--primary" id="taskSubmitBtn">➕ Tambah Tugas</button>
+          <button type="submit" class="btn btn--primary" id="taskSubmitBtn">Tambah tugas</button>
         </footer>
       </form>
     </div>
@@ -246,8 +259,10 @@
     <div class="modal__backdrop"></div>
     <div class="modal__box modal__box--sm">
       <header class="modal__header">
-        <h2 id="noteModalTitle">📝 Tulis Catatan</h2>
-        <button class="icon-btn" data-action="close-note-modal" type="button" aria-label="Tutup">✕</button>
+        <h2 id="noteModalTitle">Tulis catatan</h2>
+        <button class="icon-btn" data-action="close-note-modal" type="button" aria-label="Tutup">
+          <span data-icon="x" data-size="15"></span>
+        </button>
       </header>
 
       <form id="noteForm" class="form">
@@ -258,7 +273,7 @@
 
         <label class="field--full">
           Isi
-          <textarea name="body" rows="5" placeholder="Tulis pengingat, ide, atau ringkasan materi…"></textarea>
+          <textarea name="body" rows="5" placeholder="Tulis pengingat, ide, atau ringkasan materi"></textarea>
         </label>
 
         <fieldset class="field--full">
@@ -268,7 +283,7 @@
 
         <footer class="modal__footer">
           <button type="button" class="btn btn--ghost" data-action="close-note-modal">Batal</button>
-          <button type="submit" class="btn btn--primary">💾 Simpan Catatan</button>
+          <button type="submit" class="btn btn--primary">Simpan catatan</button>
         </footer>
       </form>
     </div>
@@ -279,13 +294,15 @@
     <div class="modal__backdrop"></div>
     <div class="modal__box modal__box--sm">
       <header class="modal__header">
-        <h2 id="profileModalTitle">✏️ Edit Profil</h2>
-        <button class="icon-btn" data-action="close-profile-modal" type="button" aria-label="Tutup">✕</button>
+        <h2 id="profileModalTitle">Edit profil</h2>
+        <button class="icon-btn" data-action="close-profile-modal" type="button" aria-label="Tutup">
+          <span data-icon="x" data-size="15"></span>
+        </button>
       </header>
 
       <form id="profileForm" class="form">
         <label class="field--full">
-          Nama Lengkap
+          Nama lengkap
           <input type="text" name="name" required maxlength="80" autocomplete="name">
         </label>
         <label class="field--full">
@@ -303,7 +320,7 @@
 
         <footer class="modal__footer">
           <button type="button" class="btn btn--ghost" data-action="close-profile-modal">Batal</button>
-          <button type="submit" class="btn btn--primary">💾 Simpan Profil</button>
+          <button type="submit" class="btn btn--primary">Simpan profil</button>
         </footer>
       </form>
     </div>
