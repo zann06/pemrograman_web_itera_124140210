@@ -1,0 +1,332 @@
+/* =========================================================
+   PAW 2 — JavaScript Next Gen (ES6+)
+   Styling kustom (tanpa framework eksternal)
+   ========================================================= */
+
+/* ---------- Design token ---------- */
+:root {
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --green-400: #4ade80;
+  --amber-500: #f59e0b;
+  --radius: 10px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --mono: "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  color: var(--gray-800);
+  background: linear-gradient(180deg, var(--gray-100) 0%, #e9eef5 100%);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 20px 64px;
+}
+
+/* ---------- Header ---------- */
+.header {
+  margin-bottom: 28px;
+}
+
+.header__badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  background: var(--blue-100);
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.header__title {
+  margin: 0 0 6px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blue-600);
+  letter-spacing: -0.02em;
+}
+
+.header__subtitle {
+  margin: 0;
+  color: var(--gray-600);
+  max-width: 62ch;
+}
+
+/* ---------- Chip daftar topik ---------- */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.chip {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+.btn--primary {
+  color: #fff;
+  background: var(--blue-500);
+}
+.btn--primary:hover {
+  background: var(--blue-600);
+}
+
+.btn--accent {
+  color: #fff;
+  background: var(--gray-700);
+}
+.btn--accent:hover {
+  background: var(--gray-800);
+}
+
+.btn--ghost {
+  color: var(--gray-700);
+  background: var(--gray-100);
+  border-color: var(--gray-200);
+}
+.btn--ghost:hover {
+  background: var(--gray-200);
+}
+
+.toolbar__hint {
+  margin: 10px 2px 22px;
+  font-size: 0.82rem;
+  color: var(--gray-500);
+}
+
+kbd {
+  padding: 1px 6px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--gray-200);
+  border-radius: 4px;
+  border-bottom: 2px solid #c9ced6;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  color: var(--blue-700);
+  background: var(--blue-50);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ---------- Kartu output ---------- */
+.output {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.output-item {
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-left: 4px solid var(--blue-500);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  animation: slide-in 0.25s ease both;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.output-item h4 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blue-600);
+}
+
+.output-item p {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+}
+
+pre.result {
+  margin: 0;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--green-400);
+  background: var(--gray-900);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* ---------- Empty state ---------- */
+.output-empty {
+  padding: 28px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  background: #fff;
+  border: 1px dashed var(--gray-200);
+  border-radius: var(--radius);
+}
+
+.output-empty[hidden] {
+  display: none;
+}
+
+/* ---------- Sub-output async ---------- */
+.promise-result,
+.async-result {
+  margin-top: 6px;
+  padding: 6px 0;
+  font-size: 0.8rem;
+  color: #d1d5db;
+  border-top: 1px dashed #374151;
+}
+
+.promise-result strong,
+.async-result strong {
+  color: #fbbf24;
+}
+
+/* ---------- Kartu produk hasil template literal ---------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.product-grid .card {
+  padding: 12px 14px;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 8px;
+}
+
+.product-grid .card span {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--blue-600);
+}
+
+.product-grid .card h5 {
+  margin: 4px 0 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.product-grid .card strong {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-200);
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .page {
+    padding: 24px 14px 48px;
+  }
+  .header__title {
+    font-size: 1.5rem;
+  }
+  .toolbar .btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

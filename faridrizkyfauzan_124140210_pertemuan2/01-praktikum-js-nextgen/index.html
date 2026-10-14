@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Next Gen — Praktikum PAW 2</title>
+  <meta name="description" content="Demo interaktif fitur JavaScript Modern (ES6+): let/const, arrow function, template literals, destructuring, spread/rest, classes, array methods, dan async programming.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <div class="header__badge">PAW 2 · Pemrograman Aplikasi Web</div>
+      <h1 class="header__title">JavaScript Next Gen Praktikum</h1>
+      <p class="header__subtitle">
+        Belajar fitur modern JavaScript (ES6+) — fondasi wajib sebelum masuk ke React.js di Pertemuan 3.
+      </p>
+      <ul class="chip-list" aria-label="Daftar topik yang didemokan">
+        <li class="chip">let / const</li>
+        <li class="chip">Arrow Function</li>
+        <li class="chip">Template Literals</li>
+        <li class="chip">Destructuring</li>
+        <li class="chip">Spread / Rest</li>
+        <li class="chip">Classes</li>
+        <li class="chip">Array Methods</li>
+        <li class="chip">Async / Await</li>
+      </ul>
+    </header>
+
+    <!-- ============ KONTROL TOMBOL ============ -->
+    <div class="toolbar">
+      <button id="runBtn" type="button" class="btn btn--primary">
+        ▶ Run Demo
+      </button>
+      <button id="runAsyncBtn" type="button" class="btn btn--accent">
+        ⏳ Jalankan Demo Async
+      </button>
+      <button id="clearBtn" type="button" class="btn btn--ghost">
+        ✕ Clear Output
+      </button>
+    </div>
+
+    <p class="toolbar__hint">
+      Demo 1–10 berjalan <strong>sinkron</strong> (instant). Demo 11–12 memakai <code>setTimeout</code> simulasi
+      jaringan sehingga butuh ±1 detik untuk selesai. Tekan <kbd>F12</kbd> → <em>Console</em> untuk melihat log lengkap.
+    </p>
+
+    <!-- ============ WADAH OUTPUT ============ -->
+    <main>
+      <div id="output" class="output" aria-live="polite">
+        <!-- Kartu hasil demo akan dirender di sini oleh js/main.js -->
+      </div>
+
+      <div id="outputEmpty" class="output-empty">
+        <strong>Belum ada output.</strong>
+        Klik tombol <em>Run Demo</em> untuk menjalankan seluruh demo ES6+.
+      </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <p>
+        Dibuat untuk Praktikum 2 — JavaScript Next Gen (ES6+).
+        Jalankan lewat <strong>Live Server</strong> (<code>http://</code>, bukan <code>file://</code>)
+        agar ES Module &amp; <code>import/export</code> dapat berjalan.
+      </p>
+    </footer>
+  </div>
+
+  <!-- type="module" WAJIB agar import/export ES6 berfungsi di browser -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

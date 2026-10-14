@@ -1,0 +1,25 @@
+# Normalisasi line ending agar tidak ada konflik CRLF/LF antar kontributor
+# Script & markup disimpan dengan LF di dalam repository,
+# lalu dikonversi otomatis ke CRLF saat di-checkout di Windows.
+
+* text=auto
+
+*.js      text eol=lf
+*.mjs     text eol=lf
+*.css     text eol=lf
+*.html    text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf
+*.gitignore     text eol=lf
+*.gitattributes text eol=lf
+LICENSE         text eol=lf
+
+# File biner
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary

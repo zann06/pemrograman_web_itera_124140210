@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard — Tugas Praktikum PAW 2</title>
+  <meta name="description" content="Personal Dashboard mahasiswa: manajemen tugas, catatan, jadwal kuliah, cuaca real-time, dan kutipan motivasi. Dibangun dengan JavaScript ES6+ (Classes, Async/Await, localStorage).">
+  <meta name="author" content="Mahasiswa PAW 2">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <div class="navbar__brand">
+      <span class="navbar__logo">📊</span>
+      <div>
+        <strong>Student Dashboard</strong>
+        <small>Tugas Praktikum PAW 2 — JavaScript ES6+</small>
+      </div>
+    </div>
+    <div class="navbar__meta">
+      <span class="navbar__date" id="todayText">—</span>
+      <span class="navbar__badge">🟢 localStorage</span>
+    </div>
+  </nav>
+
+  <div class="layout">
+
+    <!-- ============ KOLOM UTAMA ============ -->
+    <main class="layout__main">
+
+      <!-- Profil mahasiswa -->
+      <section class="card card--profile" id="profileBox" aria-live="polite"></section>
+
+      <!-- Statistik -->
+      <div id="statsBox" aria-live="polite"></div>
+
+      <!-- ===== KUTIPAN MOTIVASI (API DummyJSON) ===== -->
+      <section class="card card--quote" id="quoteBox" aria-live="polite">
+        <div class="widget__loading"><span class="spinner"></span> Mengambil kutipan…</div>
+      </section>
+
+      <!-- ===== DAFTAR TUGAS ===== -->
+      <section class="card card--tasks">
+        <header class="card__header card__header--sticky">
+          <h3>📋 Daftar Tugas <span class="pill" id="taskCount">0 tugas</span></h3>
+          <div class="card__actions">
+            <button class="btn btn--tiny" data-action="seed-from-api" type="button"
+                    title="Ambil tugas contoh dari JSONPlaceholder API">🌐 Isi dari API</button>
+            <button class="btn btn--tiny btn--danger" data-action="clear-completed" type="button">
+              🧹 Bersihkan Selesai
+            </button>
+            <button class="btn btn--primary" data-action="open-task-modal" type="button">
+              ➕ Tambah Tugas
+            </button>
+          </div>
+        </header>
+
+        <!-- Toolbar pencarian, filter, sort -->
+        <div class="toolbar">
+          <div class="search">
+            <span aria-hidden="true">🔍</span>
+            <input type="search" id="searchInput" placeholder="Cari judul atau deskripsi tugas…"
+                   aria-label="Cari tugas" autocomplete="off">
+          </div>
+
+          <select id="sortSelect" aria-label="Urutkan tugas">
+            <option value="dueDate">Urutkan: Tenggat</option>
+            <option value="priority">Urutkan: Prioritas</option>
+            <option value="title">Urutkan: Judul (A-Z)</option>
+            <option value="createdAt">Urutkan: Terbaru</option>
+          </select>
+        </div>
+
+        <div class="filters">
+          <div id="statusFilterBox" class="status-pills" role="group" aria-label="Filter status">
+            <button class="status-pill is-active" data-status-filter="all" type="button">Semua</button>
+            <button class="status-pill" data-status-filter="undone" type="button">⏳ Belum</button>
+            <button class="status-pill" data-status-filter="done" type="button">✅ Selesai</button>
+            <button class="status-pill" data-status-filter="overdue" type="button">⏰ Terlambat</button>
+          </div>
+          <div id="categoryFilterBox"></div>
+          <div id="priorityFilterBox"></div>
+        </div>
+
+        <!-- Kartu tugas di-render oleh JS -->
+        <div id="taskList" class="task-list"></div>
+      </section>
+
+    </main>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="layout__sidebar">
+
+      <!-- ===== CUACA (API Open-Meteo) ===== -->
+      <section class="card card--weather" id="weatherBox" aria-live="polite">
+        <div class="widget__loading"><span class="spinner"></span> Mengambil data cuaca…</div>
+      </section>
+
+      <!-- ===== CATATAN ===== -->
+      <section class="card card--notes">
+        <header class="card__header">
+          <h3>📝 Catatan</h3>
+          <button class="btn btn--tiny" data-action="open-note-modal" type="button">➕ Tulis</button>
+        </header>
+        <div id="notesBox" class="notes-box"></div>
+      </section>
+
+      <!-- ===== JADWAL KULIAH ===== -->
+      <section class="card card--schedule">
+        <header class="card__header">
+          <h3>🎓 Jadwal Kuliah</h3>
+        </header>
+        <div id="scheduleBox"></div>
+
+        <details class="disclosure">
+          <summary>➕ Tambah slot jadwal</summary>
+          <form id="scheduleForm" class="form form--compact">
+            <label>
+              Hari
+              <select name="day" required>
+                <option>Senin</option><option>Selasa</option><option>Rabu</option>
+                <option>Kamis</option><option>Jumat</option><option>Sabtu</option>
+                <option>Minggu</option>
+              </select>
+            </label>
+            <label>
+              Jam
+              <input type="time" name="time" value="08:00" required>
+            </label>
+            <label class="field--full">
+              Mata kuliah
+              <input type="text" name="course" placeholder="Contoh: PAW 2" required maxlength="60">
+            </label>
+            <label>
+              Ruangan
+              <input type="text" name="room" placeholder="Lab Komputasi" maxlength="60">
+            </label>
+            <label>
+              Pengampu
+              <input type="text" name="lecturer" placeholder="Nama dosen" maxlength="60">
+            </label>
+            <button type="submit" class="btn btn--primary field--full">Simpan Jadwal</button>
+          </form>
+        </details>
+      </section>
+
+      <!-- ===== INFO PENYIMPANAN ===== -->
+      <section class="card card--storage">
+        <div id="storageBox"></div>
+      </section>
+
+      <!-- ===== TEKNOLOGI YANG DIGUNAKAN ===== -->
+      <section class="card card--stack">
+        <header class="card__header"><h3>🧪 Fitur ES6+</h3></header>
+        <ul class="stack-list">
+          <li><code>let</code> &amp; <code>const</code> — deklarasi variabel aman</li>
+          <li><code>class TaskItem</code> — model data tugas</li>
+          <li><code>class DashboardApp</code> — state management + CRUD</li>
+          <li><code>class Storage</code> — wrapper <code>localStorage</code></li>
+          <li><code>#privateField</code> — encapsulation (ES2022)</li>
+          <li>Arrow Functions — 30+ implementasi</li>
+          <li>Template Literals — seluruh rendering HTML</li>
+          <li>Destructuring — parameter & body fungsi</li>
+          <li>Spread &amp; Rest — pembaruan state immutable</li>
+          <li><code>async</code> / <code>await</code> — integrasi 3 API</li>
+          <li><code>Promise.all</code> &amp; <code>allSettled</code> — paralel &amp; tahan gagal</li>
+          <li><code>map</code> / <code>filter</code> / <code>reduce</code> / <code>sort</code></li>
+          <li>ES Modules — <code>import</code> / <code>export</code></li>
+        </ul>
+      </section>
+
+    </aside>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <p>
+      <strong>Tugas Praktikum PAW 2</strong> — Personal Dashboard.
+      Data tersimpan di <code>localStorage</code> browser Anda (tidak dikirim ke server mana pun).
+      Weather: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> ·
+      Quote: <a href="https://dummyjson.com" target="_blank" rel="noopener">DummyJSON</a> ·
+      Todos: <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener">JSONPlaceholder</a>
+    </p>
+  </footer>
+
+  <!-- ============ MODAL: FORM TUGAS ============ -->
+  <div class="modal" id="taskModal" hidden role="dialog" aria-modal="true" aria-labelledby="taskModalTitle">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box">
+      <header class="modal__header">
+        <h2 id="taskModalTitle">➕ Tambah Tugas Baru</h2>
+        <button class="icon-btn" data-action="close-task-modal" type="button" aria-label="Tutup">✕</button>
+      </header>
+
+      <form id="taskForm" class="form">
+        <label class="field--full">
+          Judul Tugas <span class="required">*</span>
+          <input type="text" name="title" placeholder="Contoh: Tugas Praktikum JS Next Gen"
+                 required maxlength="120" autocomplete="off">
+        </label>
+
+        <label class="field--full">
+          Deskripsi
+          <textarea name="description" rows="3" maxlength="400"
+                    placeholder="Catatan detail, tautan pengumpulan, dll."></textarea>
+        </label>
+
+        <label>
+          Kategori
+          <select name="category"></select>
+        </label>
+
+        <label>
+          Prioritas
+          <select name="priority">
+            <option value="high">🔴 Tinggi</option>
+            <option value="medium" selected>🟡 Sedang</option>
+            <option value="low">🟢 Rendah</option>
+          </select>
+        </label>
+
+        <label>
+          Tenggat
+          <input type="date" name="dueDate">
+        </label>
+
+        <label class="checkbox">
+          <input type="checkbox" name="completed">
+          <span>Tandai sudah selesai</span>
+        </label>
+
+        <footer class="modal__footer">
+          <button type="button" class="btn btn--ghost" data-action="close-task-modal">Batal</button>
+          <button type="submit" class="btn btn--primary" id="taskSubmitBtn">➕ Tambah Tugas</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL: FORM CATATAN ============ -->
+  <div class="modal" id="noteModal" hidden role="dialog" aria-modal="true" aria-labelledby="noteModalTitle">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box modal__box--sm">
+      <header class="modal__header">
+        <h2 id="noteModalTitle">📝 Tulis Catatan</h2>
+        <button class="icon-btn" data-action="close-note-modal" type="button" aria-label="Tutup">✕</button>
+      </header>
+
+      <form id="noteForm" class="form">
+        <label class="field--full">
+          Judul
+          <input type="text" name="title" placeholder="Judul catatan" maxlength="80" autocomplete="off">
+        </label>
+
+        <label class="field--full">
+          Isi
+          <textarea name="body" rows="5" placeholder="Tulis pengingat, ide, atau ringkasan materi…"></textarea>
+        </label>
+
+        <fieldset class="field--full">
+          <legend>Warna catatan</legend>
+          <div id="noteColorBox" class="color-options"></div>
+        </fieldset>
+
+        <footer class="modal__footer">
+          <button type="button" class="btn btn--ghost" data-action="close-note-modal">Batal</button>
+          <button type="submit" class="btn btn--primary">💾 Simpan Catatan</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL: FORM PROFIL ============ -->
+  <div class="modal" id="profileModal" hidden role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal__backdrop"></div>
+    <div class="modal__box modal__box--sm">
+      <header class="modal__header">
+        <h2 id="profileModalTitle">✏️ Edit Profil</h2>
+        <button class="icon-btn" data-action="close-profile-modal" type="button" aria-label="Tutup">✕</button>
+      </header>
+
+      <form id="profileForm" class="form">
+        <label class="field--full">
+          Nama Lengkap
+          <input type="text" name="name" required maxlength="80" autocomplete="name">
+        </label>
+        <label class="field--full">
+          NIM
+          <input type="text" name="nim" required maxlength="24">
+        </label>
+        <label>
+          Jurusan
+          <input type="text" name="major" required maxlength="80">
+        </label>
+        <label>
+          Semester
+          <input type="number" name="semester" min="1" max="14" required>
+        </label>
+
+        <footer class="modal__footer">
+          <button type="button" class="btn btn--ghost" data-action="close-profile-modal">Batal</button>
+          <button type="submit" class="btn btn--primary">💾 Simpan Profil</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- type="module" WAJIB agar ES Module import/export berjalan -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

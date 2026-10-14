@@ -11,6 +11,7 @@ Repository praktikum Pemrograman Web ITERA.
 | Pertemuan | Folder | Isi |
 |---|---|---|
 | 1 | [faridrizkyfauzan_124140210_pertemuan1](faridrizkyfauzan_124140210_pertemuan1) | Tugas Mini POS + folder `modul/` (praktikum & latihan JavaScript Dasar) |
+| 2 | [faridrizkyfauzan_124140210_pertemuan2](faridrizkyfauzan_124140210_pertemuan2) | Praktikum JS Next Gen (12 demo ES6+) + Tugas Personal Student Dashboard |
 
 ---
 
@@ -67,3 +68,138 @@ pemrograman_web_itera_124140210/
         ├── 03_array_objek/
         └── 04_dom_api/
 ```
+
+---
+
+# Pertemuan 2 - JavaScript Next Gen (ES6+)
+
+Topik pertemuan ini adalah **mengenal JavaScript Modern (ES6+)** — fondasi wajib sebelum masuk ke React.js di Pertemuan 3. Pengumpulan ini berisi dua bagian: materi praktikum (demo lab 12 fitur ES6+) dan tugas (aplikasi Personal Student Dashboard).
+
+## Panduan Menjalankan
+
+Kedua aplikasi **wajib** dijalankan lewat **Live Server**, **bukan double-click** — browser memblokir ES Module pada protokol `file://`.
+
+```bash
+# Clone repository ini, lalu:
+cd faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen
+python -m http.server 5500     # buka http://localhost:5500
+```
+
+Atau di VS Code: klik kanan `index.html` → **Open with Live Server**.
+
+| Aplikasi | Alamat lokal | Yang dicek |
+|---|---|---|
+| Praktikum | `01-praktikum-js-nextgen/index.html` | Klik **▶ Run Demo** (10 demo sinkron), lalu **⏳ Jalankan Demo Async** (2 demo async, ±1 detik) |
+| Tugas | `02-tugas-personal-dashboard/index.html` | Tunggu ±2 detik (3 API publik termuat), coba tambah/edit/hapus tugas, refresh → data tetap tersimpan |
+
+## Struktur Folder
+
+```
+faridrizkyfauzan_124140210_pertemuan2/
+├── 01-praktikum-js-nextgen/          # Praktikum — demo lab 12 fitur ES6+
+│   ├── index.html
+│   ├── README.md                     # Dokumentasi lengkap
+│   ├── LICENSE
+│   ├── .gitignore
+│   ├── css/style.css
+│   └── js/
+│       ├── main.js                   # Entry point / DOM controller
+│       ├── app.js                    # 12 fungsi demo ES6+
+│       └── modules/
+│           ├── data.js               # sampleUsers, sampleProducts, apiConfig
+│           └── utils.js              # formatRupiah, capitalize, dll
+│
+└── 02-tugas-personal-dashboard/      # Tugas — Personal Student Dashboard
+    ├── index.html
+    ├── README.md                     # Dokumentasi lengkap
+    ├── LICENSE
+    ├── .gitignore
+    ├── css/style.css
+    ├── docs/                         # Screenshot untuk laporan
+    └── js/
+        ├── main.js                   # Controller (event, modal, async)
+        ├── app.js                    # Renderer (seluruh template literal HTML)
+        └── modules/
+            ├── classes.js            # class TaskItem & class DashboardApp
+            ├── storage.js            # class Storage (wrapper localStorage)
+            ├── api.js                # Async/Await + integrasi 3 API publik
+            ├── constants.js          # Konfigurasi terpusat
+            └── utils.js              # 15+ arrow function helper
+```
+
+## Bagian 1 — Praktikum: Demo Lab 12 Fitur ES6+
+
+Demo lab interaktif yang membandingkan **cara lama vs cara modern** untuk setiap topik.
+
+| # | Topik | Fitur Utama |
+|---|---|---|
+| 1 | Let dan Const | block scope, TDZ, `const` untuk objek |
+| 2 | Arrow Functions | implicit return, lexical `this` |
+| 3 | Template Literals | `${}`, string multi-baris tanpa escape |
+| 4 | Destructuring | object/array, nested 3 level, skip elemen, swap |
+| 5 | Spread & Rest | operator `...`, shallow copy |
+| 6 | Default Parameters | bug operator `||` vs default parameter |
+| 7 | Classes | `extends`, `super`, getter/setter, `static`, private field `#` |
+| 8 | Enhanced Object Literals | property & method shorthand, computed property |
+| 9 | Modern Array Methods | `map`/`filter`/`find`/`some`/`every`/`reduce` + chaining |
+| 10 | Advanced Arrays | `Array.from`, `flat`, `flatMap`, `at`, `findLast`, `structuredClone` |
+| 11 | Promises | `then`/`catch`/`finally`, `Promise.all`/`race`/`allSettled` |
+| 12 | Async / Await | `try/catch`, eksekusi paralel, integrasi API nyata |
+
+📖 Dokumentasi rinci: [`01-praktikum-js-nextgen/README.md`](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/README.md)
+
+## Bagian 2 — Tugas: Personal Student Dashboard
+
+Aplikasi dashboard mahasiswa — bukan to-do list generik, tapi memakai konteks perkuliahan nyata.
+
+### Fitur
+- **CRUD tugas lengkap** — tambah, edit, hapus, tandai selesai, bersihkan yang selesai
+- **Filter & pencarian** — cari live, filter kategori / prioritas / status, 4 opsi sortir
+- **Catatan pribadi** — 5 warna klasifikasi
+- **Jadwal kuliah** — tambah/hapus slot, urut otomatis, badge "Hari ini"
+- **Statistik** — 4 kartu ringkasan, progress bar, distribusi per kategori
+- **Cuaca real-time** (Open-Meteo) — koordinat ITERA, Lampung Selatan
+- **Kutipan motivasi** (DummyJSON) — tombol "Kutipan lain"
+- **Seeding tugas** dari JSONPlaceholder pada kunjungan pertama
+- **Penyimpanan lokal** — `localStorage` + ekspor JSON + reset
+- **UX** — toast, loading spinner, modal (tutup via tombol/backdrop/`Esc`), responsif, aksesibel
+
+### Arsitektur Kode
+Mengikuti objek berorientasi objek modern sesuai arahan tugas:
+
+| Class | File | Tanggung Jawab |
+|---|---|---|
+| `TaskItem` | `js/modules/classes.js` | Model satu item tugas — validasi di constructor, getter turunan (`isOverdue`, `isUrgent`), `toJSON()`/`fromJSON()` |
+| `DashboardApp` | `js/modules/classes.js` | State management — CRUD, filter/sort, agregasi statistik, persistensi |
+| `Storage` | `js/modules/storage.js` | Wrapper `localStorage` — `try/catch` quota, fallback in-memory, namespacing |
+
+Prinsip yang diterapkan: **encapsulation** (`#tasks` private field), **immutability** (`[...arr, x]`, bukan `push`), **observer pattern** (`subscribe()`), dan **separation of concerns** (model / storage / API / view / controller terpisah).
+
+### Fitur ES6+ yang Digunakan
+- Arrow function (puluhan) — termasuk *higher-order function* dan *currying*
+- Template literals untuk seluruh rendering HTML
+- Destructuring di parameter fungsi dan di dalam body
+- Spread `...` dan rest parameter, update state secara immutable
+- `class`, `extends`, `super()`, getter/setter, `static`, private field `#` (ES2022)
+- `async` / `await`, `try/catch`, `Promise.all`, `Promise.allSettled`, `AbortController`, dynamic `import()`
+- Array methods: `map`, `filter`, `find`, `reduce`, `some`, `every`, `flat`, `flatMap`, `includes`, `at`, `findLast`
+- ES Modules (`import` / `export`) di seluruh kode
+
+📖 Dokumentasi rinci: [`02-tugas-personal-dashboard/README.md`](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/README.md)
+
+## Verifikasi
+
+| Pemeriksaan | Praktikum | Tugas |
+|---|---:|---:|
+| Validasi sintaks (`node --check`) | 4/4 | 7/7 |
+| Uji fungsional otomatis | 101/101 | 160/160 |
+| Entri fitur ES6+ terdokumentasi per baris | 96 | 90 |
+
+Total **261 pengujian otomatis lulus, 0 gagal, 0 error sintaks**.
+
+Bug yang ditemukan dan diperbaiki selama pengembangan:
+
+1. Kunci `localStorage` terduplikasi namespace (`paw2.dashboard.paw2.dashboard.tasks`) → disederhanakan
+2. `export { formatRupiah }` tanpa import → `SyntaxError` saat modul dimuat → dihapus
+3. Badge tenggat menampilkan "Terlambat 20748 hari" → `formatRelative()` kini menerima angka sebagai jumlah hari
+4. Import tidak terpakai di `main.js` dan `app.js` → dibersihkan

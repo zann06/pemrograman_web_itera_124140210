@@ -1,2 +1,27 @@
 .DS_Store
 node_modules/
+
+# --- tambahan untuk Pertemuan 2 ---
+# Setting editor/IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# Log
+*.log
+npm-debug.log*
+
+# File junk Windows
+Thumbs.db
+Desktop.ini
+
+# Temporary & build
+temp/
+tmp/
+*.tmp
+*.bak
+dist/
+build/
+.cache/
