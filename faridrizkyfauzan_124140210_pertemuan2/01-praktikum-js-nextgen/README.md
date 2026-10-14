@@ -457,23 +457,28 @@ Dihitung otomatis dari tabel di bawah. Satu baris kode bisa masuk lebih dari sat
 
 ## 📸 Screenshot
 
-> **Cara membuat screenshot untuk laporan:**
-> 1. Jalankan aplikasi via Live Server.
-> 2. Klik **▶ Run Demo** → tunggu screenshot 1–10 muncul.
-> 3. Klik **⏳ Jalankan Demo Async** → tunggu ±1 detik.
-> 4. Tekan `Win + Shift + S` (Windows) atau `Cmd + Shift + 4` (Mac) untuk capture.
-> 5. Simpan sebagai `docs/screenshot-01-run-demo.png`.
-> 6. Ulangi: `docs/screenshot-02-async.png`.
-> 7. Buka VS Code → klik kanan file gambar di Explorer → **Copy Path** → tempel ke bagian bawah README ini.
+> Diambil otomatis dengan Chrome headless (`puppeteer-core`) pada 1440×950, 2× scale.
+> Baris **12d** dan **12e** memakai data nyata dari API publik (Open-Meteo & DummyJSON).
 
-Tempatkan file screenshot di folder `docs/` lalu rujuk seperti ini:
+### 1. Demo sinkron — 10 topik ES6+
 
-```markdown
-![Tampilan Run Demo](docs/screenshot-01-run-demo.png)
-![Tampilan Demo Async](docs/screenshot-02-async.png)
-```
+Hasil setelah menekan tombol **▶ Run Demo**.
 
----
+![Run demo](screenshots/01-run-demo-bagian-atas.png)
+
+### 2. Seluruh output (halaman penuh)
+
+10 demo sinkron beserta kartu ringkasan 12 topik.
+
+![Run demo lengkap](screenshots/02-run-demo-lengkap.png)
+
+### 3. Demo async — Promise & Async/Await
+
+Hasil setelah menekan tombol **⏳ Jalankan Demo Async**. Perhatikan baris
+**12b** yang membuktikan `Promise.all` berjalan paralel (±1000ms, bukan 3000ms),
+serta **12d/12e** yang menampilkan data nyata dari API publik.
+
+![Demo async](screenshots/03-demo-async-promise-await.png)
 
 ## 🚀 Push ke GitHub
 

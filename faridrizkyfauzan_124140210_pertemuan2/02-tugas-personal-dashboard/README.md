@@ -119,57 +119,64 @@ Mahasiswa umumnya punya masalah yang **sama berulang setiap semester**: tugas me
 
 ## 📸 Screenshot
 
-> **Panduan membuat screenshot untuk laporan:**
->
-> **Langkah 1 — Persiapan data**
-> Jalankan aplikasi via Live Server. Pada kunjungan pertama, 6 tugas contoh otomatis terisi dari API. Tambahkan 2–3 tugas manual, 1 catatan, dan pastikan widget cuaca sudah termuat.
->
-> **Langkah 2 — Capture layar**
-> - Windows: `Win + Shift + S` (Snipping Tool)
-> - Mac: `Cmd + Shift + 4`
-> - Linux: `PrtSc` (simpan ke folder Pictures)
->
-> **Langkah 3 — Simpan**
-> Pindahkan file ke folder `docs/` dengan nama deskriptif.
->
-> **Langkah 4 — Tempel ke README**
-> Buka VS Code → klik kanan file gambar di Explorer → **Copy Path** → tempel ke markdown di bawah.
+> Semua gambar di folder `docs/screenshots/` diambil otomatis dengan Chrome headless
+> (`puppeteer-core`) pada **1440×900** (desktop, 2× scale) dan **390×844** (mobile).
+> Data pada screenshot diambil dari **API publik sungguhan** — cuaca Open-Meteo,
+> kutipan DummyJSON, dan 6 tugas dari JSONPlaceholder.
 
-### Screenshot 1 — Tampilan Utama (Dashboard)
+### 1. Dashboard utama (desktop)
 
-Letakkan file di `docs/screenshot-01-dashboard-utama.png`, lalu aktifkan baris markdown ini:
+Tampilan lengkap: profil, 4 kartu statistik, progress bar + distribusi kategori,
+kutipan motivasi, daftar tugas, serta sidebar (cuaca, catatan, jadwal, panel storage).
 
-```markdown
-![Tampilan Utama Dashboard](docs/screenshot-01-dashboard-utama.png)
-```
+![Dashboard utama](docs/screenshots/01-dashboard-utama.png)
 
-### Screenshot 2 — Form Tambah Tugas (Modal)
+### 2. Form tambah tugas (modal)
 
-```markdown
-![Modal Form Tambah Tugas](docs/screenshot-02-form-tugas.png)
-```
+Bukti interaktif — modal dengan validasi judul, dropdown kategori/prioritas, dan date picker.
 
-### Screenshot 3 — Filter & Pencarian Aktif
+![Form tambah tugas](docs/screenshots/02-form-tambah-tugas.png)
 
-```markdown
-![Filter dan Pencarian](docs/screenshot-03-filter-pencarian.png)
-```
+### 3. Pencarian + filter kategori aktif
 
-### Screenshot 4 — Widget Async (Cuaca & Kutipan)
+Mencari kata kunci `tugas` **dan** memilih kategori "Tugas" sekaligus —
+setiap kondisi filter diterapkan terpisah lalu digabung.
 
-```markdown
-![Widget Cuaca dan Kutipan](docs/screenshot-04-widget-async.png)
-```
+![Filter dan pencarian](docs/screenshots/03-filter-dan-pencarian.png)
 
-### Screenshot 5 — Tampilan Mobile (Responsive)
+### 4. Widget async: cuaca, kutipan, jadwal
 
-Gunakan DevTools (F12) → Toggle Device Toolbar (Ctrl+Shift+M) → pilih iPhone → capture.
+Cuaca real-time di Bandar Lampung dari **Open-Meteo**, kutipan dari **DummyJSON**,
+dan jadwal kuliah dengan badge otomatis "Hari ini".
 
-```markdown
-![Tampilan Mobile](docs/screenshot-05-tampilan-mobile.png)
-```
+![Widget cuaca kutipan jadwal](docs/screenshots/04-widget-cuaca-kutipan-jadwal.png)
 
----
+### 5. Panel penyimpanan lokal
+
+Menampilkan status `localStorage`, jumlah item, jumlah key, dan ukuran data.
+
+![Panel penyimpanan lokal](docs/screenshots/05-panel-penyimpanan-lokal.png)
+
+### 6. Ringkasan fitur ES6+ yang dipakai
+
+![Daftar fitur ES6](docs/screenshots/06-daftar-fitur-es6.png)
+
+### 7. Tampilan mobile (390×844)
+
+Tata letak berubah menjadi satu kolom; seluruh fitur tetap berfungsi.
+
+![Tampilan mobile](docs/screenshots/07-tampilan-mobile.png)
+
+### Cara membuat ulang screenshot
+
+Screenshot diambil dengan skrip otomatis agar konsisten. Untuk mengambil ulang
+secara manual:
+
+1. Jalankan aplikasi via **Live Server**
+2. Tunggu API selesai termuat (±2 detik)
+3. Tekan `Win + Shift + S` (Windows) atau `Cmd + Shift + 4` (Mac)
+4. Simpan ke `docs/screenshots/` dengan nama yang sama
+5. `Ctrl + F5` untuk memuat ulang halaman (hard refresh)
 
 ## ▶️ Cara Menjalankan
 
@@ -673,22 +680,31 @@ Aplikasi ini **sudah diverifikasi otomatis** sebelum dikirim (seluruh pengujian 
 |---|---|---:|
 | Logika inti (`classes.js` + `storage.js`) | Validasi model, CRUD, immutability, filter/sort, persistensi, seed API, error isolation | **91/91 lulus** |
 | Rendering DOM (`app.js`) | Seluruh renderer, anti-XSS, empty state, loading/error state, progress bar, toast | **69/69 lulus** |
+| End-to-end (Chrome headless) | Menjalankan aplikasi sungguhan: tambah tugas/catatan lewat form, filter, pencarian, modal, integrasi 3 API publik | **lulus** |
 | Validasi sintaks | `node --check` untuk 11 file `.js` | **11/11 valid** |
 
 **Bug yang ditemukan & diperbaiki selama pengujian:**
 
-| Bug | Lokasi | Perbaikan |
-|---|---|---|
-| Kunci localStorage terduplikasi namespace (`paw2.dashboard.paw2.dashboard.tasks`) | `modules/constants.js` | Kunci disederhanakan; namespacing ditangani tunggal di `class Storage` |
-| `export { formatRupiah }` tanpa import → `SyntaxError` saat modul dimuat | `js/app.js` | Re-export yang tidak terpakai dihapus |
-| Badge tenggat menampilkan "Terlambat 20748 hari" | `js/app.js` | `formatRelative()` menerima angka (`daysRemaining`) sebagai jumlah hari, bukan timestamp |
-| Import tidak terpakai (`formatDate`, `formatRelative`, `STORAGE_KEYS`) | `js/main.js`, `js/app.js` | Dibersihkan agar tidak ada dead code |
+| # | Bug | Gejala | Perbaikan |
+|---|---|---|---|
+| 1 | Kunci localStorage terduplikasi namespace | Key menjadi `paw2.dashboard.paw2.dashboard.tasks` | Kunci disederhanakan; namespacing ditangani tunggal di `class Storage` |
+| 2 | Re-export tanpa import | `SyntaxError` saat modul dimuat | `export { formatRupiah }` yang tidak terpakai dihapus |
+| 3 | Badge tenggat salah hitung | Menampilkan "Terlambat 20748 hari" | `formatRelative()` kini menerima angka (`daysRemaining`) sebagai jumlah hari, bukan timestamp |
+| 4 | Import tidak terpakai | Dead code di `main.js`, `app.js` | Dibersihkan |
+| 5 | **`app.subscribe(render)` tidak pernah dipanggil** | **UI tidak pernah re-render setelah state berubah — aplikasi praktisnya read-only** | **Listener didaftarkan di `init()`; observer pattern kini benar-benar bekerja** |
+| 6 | Destructure `color` tapi input bernama `noteColor` | Form catatan gagal submit (`Cannot read properties of undefined`) | Nama field diselaraskan + fallback `?? "yellow"` |
+| 7 | `title` dikirim sebagai element, bukan `.value` | Judul tugas tersimpan `"[object HTMLInputElement]"`, pencarian tidak menemukan hasil | Diambil sinkron sebelum `setTimeout`, memakai `title.value.trim()` |
+| 8 | Jam cuaca "Invalid Date" | Open-Meteo mengembalikan `current_weather.time` sebagai **string ISO**, bukan Unix timestamp | `new Date(w.time)` tanpa `* 1000`, plus guard `Number.isNaN` |
+
+Bug nomor 5–7ketahuan berkat pengujian end-to-end dengan Chrome headless —
+semuanya lolos 160 uji unit karena test tersebut memanggil model secara langsung,
+tanpa melewati handler form di `main.js`.
 ### Checklist Sebelum Menyerahkan
 
-- [ ] Ganti nama & NIM di menu **Edit Profil**
-- [ ] Tambah minimal 5 tugas manual dengan berbagai kategori & prioritas
-- [ ] Tambah 2–3 catatan
-- [ ] Pastikan widget cuaca & kutipan termuat (butuh internet)
+- [x] Isi **Nama & NIM** lewat tombol "Edit Profil" (Farid Rizky Fauzan / 124140210)
+- [x] Tambah tugas dengan berbagai kategori & prioritas
+- [x] Tambah catatan
+- [x] Pastikan widget cuaca & kutipan termuat (butuh internet)
 - [ ] Ambil **6 screenshot** ke folder `docs/`
 - [ ] Aktifkan baris markdown screenshot di README
 - [ ] Push ke GitHub (lihat bagian bawah)

@@ -319,27 +319,29 @@ function handleTaskSubmit(event) {
   button.classList.add("is-loading");
   button.textContent = "Menyimpan…";
 
-  // Kumpulkan form menjadi satu objek (dengan destructuring)
+  /* Kumpulkan nilai form menjadi satu objek.
+     PENTING: ambil .value/.checked SEBELUM masuk setTimeout,
+     karena element form bisa di-reset atau ditutup sewaktu-waktu. */
   const { title, description, category, priority, dueDate, completed } = form.elements;
+
+  const payload = {
+    title: title.value.trim(),
+    description: description.value,
+    category: category.value,
+    priority: priority.value,
+    dueDate: dueDate.value || null,
+    completed: completed.checked
+  };
 
   // Tunda sedikit supaya efek "menyimpan" terlihat
   setTimeout(() => {
     try {
-      const payload = {
-        title,
-        description: description.value,
-        category: category.value,
-        priority: priority.value,
-        dueDate: dueDate.value || null,
-        completed: completed.checked
-      };
-
       if (uiState.editingTaskId) {
         app.updateTask(uiState.editingTaskId, payload);
-        showToast(`Tugas "${payload.title.value}" diperbarui.`);
+        showToast(`Tugas "${payload.title}" diperbarui.`);
       } else {
         app.addTask(payload);
-        showToast(`Tugas "${payload.title.value}" ditambahkan.`);
+        showToast(`Tugas "${payload.title}" ditambahkan.`);
       }
 
       form.reset();
@@ -356,12 +358,16 @@ function handleNoteSubmit(event) {
   event.preventDefault();
 
   const form = event.target;
-  const { title, body, color } = form.elements;
+
+  // PENTING: nama elemen input di HTML adalah "noteColor" (radio group),
+  // BUKAN "color". Destructure harus mengikuti nama tersebut.
+  const { title, body, noteColor } = form.elements;
 
   const payload = {
     title: title.value.trim() || "Tanpa judul",
     body: body.value,
-    color: color.value
+    // RadioNodeList -> ambil nilai yang sedang ter-check
+    color: noteColor?.value ?? "yellow"
   };
 
   if (uiState.editingNoteId) {
@@ -565,6 +571,14 @@ function init() {
 
   // Opsi warna catatan
   $("#noteColorBox").innerHTML = renderNoteColors();
+
+  /* ---- OBSERVER PATTERN (WAJIB) ----
+     Daftarkan render() sebagai listener. Setiap kali state berubah
+     (addTask / toggleTask / setFilter / dst.), DashboardApp memanggil
+     #emit() yang otomatis memanggil render() ini.
+
+     TANPA baris ini, UI tidak pernah diperbarui setelah state berubah. */
+  app.subscribe(render);
 
   // Render pertama
   render();

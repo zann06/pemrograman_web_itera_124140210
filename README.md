@@ -187,6 +187,40 @@ Prinsip yang diterapkan: **encapsulation** (`#tasks` private field), **immutabil
 
 📖 Dokumentasi rinci: [`02-tugas-personal-dashboard/README.md`](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/README.md)
 
+### Tangkapan Layar — Pertemuan 2
+
+**Dashboard utama** (desktop 1440×900, data dari API publik sungguhan):
+
+![Dashboard utama](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/01-dashboard-utama.png)
+
+**Form tambah tugas** (bukti interaktif CRUD):
+
+![Form tambah tugas](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/02-form-tambah-tugas.png)
+
+**Pencarian + filter kategori aktif:**
+
+![Filter pencarian](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/03-filter-dan-pencarian.png)
+
+**Widget async** (cuaca Open-Meteo, kutipan DummyJSON, jadwal kuliah):
+
+![Widget async](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/04-widget-cuaca-kutipan-jadwal.png)
+
+**Panel penyimpanan lokal:**
+
+![Panel storage](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/05-panel-penyimpanan-lokal.png)
+
+**Tampilan mobile** (390×844):
+
+![Tampilan mobile](faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/docs/screenshots/07-tampilan-mobile.png)
+
+**Demo lab ES6+ — 10 demo sinkron:**
+
+![Run demo](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/01-run-demo-bagian-atas.png)
+
+**Demo async — Promise & Async/Await dengan API nyata:**
+
+![Demo async](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/03-demo-async-promise-await.png)
+
 ## Verifikasi
 
 | Pemeriksaan | Praktikum | Tugas |

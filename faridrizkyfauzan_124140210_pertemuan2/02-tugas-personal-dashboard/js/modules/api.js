@@ -85,16 +85,22 @@ export const getWeather = async () => {
   const w = data.current_weather;
   const meta = WEATHER_CODES[w.weathercode] ?? { label: "Tidak diketahui", icon: "❓" };
 
+  /* Open-Meteo mengembalikan current_weather.time sebagai STRING ISO
+     (contoh: "2026-10-14T23:15"), BUKAN Unix timestamp.
+     Jadi JANGAN dikali 1000 — cukup new Date(w.time).
+     Kalau dikali 1000 hasilnya NaN dan muncul "Invalid Date". */
+  const updatedAt = new Date(w.time);
+  const time = Number.isNaN(updatedAt.getTime())
+    ? "—"
+    : updatedAt.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+
   return {
     location: LOCATION.name,
     temperature: Math.round(w.temperature),
     label: meta.label,
     icon: meta.icon,
     windSpeed: w.windspeed,
-    time: new Date(w.time * 1000).toLocaleTimeString("id-ID", {
-      hour: "2-digit",
-      minute: "2-digit"
-    })
+    time
   };
 };
 
