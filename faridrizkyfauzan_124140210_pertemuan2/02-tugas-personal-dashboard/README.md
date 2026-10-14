@@ -2,6 +2,9 @@
 
 > **Farid Rizky Fauzan** · NIM **124140210** · Pemrograman Aplikasi Web (PAW)
 > Repository: [`zann06/pemrograman_web_itera_124140210`](https://github.com/zann06/pemrograman_web_itera_124140210)
+> **Demo langsung (GitHub Pages):** <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/index.html>
+> **Repository:** <https://github.com/zann06/pemrograman_web_itera_124140210>
+
 
 **Personal Dashboard** untuk mahasiswa: kelola tugas, catatan, jadwal kuliah, cuaca real-time, dan kutipan motivasi harian — semuanya dibangun dari nol menggunakan **JavaScript Modern (ES6+)** tanpa framework.
 
@@ -894,7 +897,7 @@ Agar dosen bisa membuka langsung dari browser **tanpa install apa pun**.
 4. **Branch**: `main` · **Folder**: `/ (root)`
 5. Klik **Save**
 6. Tunggu ±1–2 menit
-7. Akses di: `https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/`
+7. Akses di: `https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/`
 
 > ⚠️ Repository harus **Public** agar Pages bisa diaktifkan.
 

@@ -13,6 +13,22 @@ Repository praktikum Pemrograman Web ITERA.
 | 1 | [faridrizkyfauzan_124140210_pertemuan1](faridrizkyfauzan_124140210_pertemuan1) | Tugas Mini POS + folder `modul/` (praktikum & latihan JavaScript Dasar) |
 | 2 | [faridrizkyfauzan_124140210_pertemuan2](faridrizkyfauzan_124140210_pertemuan2) | Praktikum JS Next Gen (12 demo ES6+) + Tugas Personal Student Dashboard |
 
+## 🔗 Coba Langsung
+
+Aplikasi di repository ini **sudah dideploy** di GitHub Pages dan bisa
+dibuka langsung tanpa install apa pun:
+
+| Aplikasi | Tautan Langsung |
+|---|---|
+| **Tugas** — Personal Student Dashboard | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/index.html> |
+| **Praktikum** — Demo Lab 12 Fitur ES6+ | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/index.html> |
+| **Repository** | <https://github.com/zann06/pemrograman_web_itera_124140210> |
+
+> **Catatan:**
+> - Widget cuaca & kutipan membutuhkan koneksi internet.
+> - Data tugas/catatan disimpan di `localStorage` browser masing-masing,
+>   jadi data Anda tidak bercampur dengan pengunjung lain.
+
 ---
 
 # Pertemuan 1 - Mini POS: Kasir & Keranjang Belanja Sederhana

@@ -2,6 +2,9 @@
 
 > **Farid Rizky Fauzan** · NIM **124140210** · Pemrograman Aplikasi Web (PAW)
 > Repository: [`zann06/pemrograman_web_itera_124140210`](https://github.com/zann06/pemrograman_web_itera_124140210)
+> **Demo langsung (GitHub Pages):** <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/index.html>
+> **Repository:** <https://github.com/zann06/pemrograman_web_itera_124140210>
+
 
 Demo interaktif 12 fitur JavaScript Modern (ES6+) yang menjadi fondasi sebelum masuk ke **Pertemuan 3 — React.js**.
 
@@ -564,7 +567,7 @@ git push -u origin main
 1. GitHub → repository → **Settings** → **Pages**
 2. **Source**: `Deploy from a branch` → branch `main`, folder `/ (root)`
 3. Klik **Save**, tunggu ±1 menit
-4. Akses: `https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/`
+4. Akses: `https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/`
 
 > Ticker **Settings → Pages** butuh repository bersifat **Public**.
 

@@ -63,10 +63,14 @@ export const API_ENDPOINTS = {
 /** Konfigurasi timeout untuk fetch (ms) */
 export const REQUEST_TIMEOUT = 6000;
 
-/** Data profil mahasiswa default (bisa diganti lewat UI) */
+/**
+ * Data profil mahasiswa default.
+ * Bisa diganti kapan saja lewat tombol "Edit Profil" di header —
+ * hasil perubahan disimpan ke localStorage dan menimpa nilai ini.
+ */
 export const DEFAULT_PROFILE = {
-  name: "Mahasiswa",
-  nim: "221011700XXX",
+  name: "Farid Rizky Fauzan",
+  nim: "124140210",
   major: "Teknik Informatika",
   semester: 4
 };
