@@ -77,5 +77,5 @@ export const DEFAULT_PROFILE = {
   name: "Farid Rizky Fauzan",
   nim: "124140210",
   major: "Teknik Informatika",
-  semester: 4
+  semester: 5
 };
