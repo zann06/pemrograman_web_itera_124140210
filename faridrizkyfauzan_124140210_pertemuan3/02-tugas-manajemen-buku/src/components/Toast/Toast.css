@@ -1,0 +1,50 @@
+.toast-wrap {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: min(320px, calc(100vw - 2rem));
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: toast-masuk 0.2s ease-out;
+}
+
+.toast-teks {
+  flex: 1;
+}
+
+.toast-tutup {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  opacity: 0.6;
+}
+
+.toast-tutup:hover {
+  opacity: 1;
+}
+
+@keyframes toast-masuk {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

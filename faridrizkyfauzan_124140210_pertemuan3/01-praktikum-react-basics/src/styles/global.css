@@ -1,0 +1,550 @@
+/* ==========================================================================
+   Praktikum React Basics - style dasar
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --fg: #18181b;
+  --card: #ffffff;
+  --muted: #f4f4f5;
+  --muted-fg: #71717a;
+  --border: #e4e4e7;
+  --primary: #18181b;
+  --primary-fg: #fafafa;
+  --accent: #2563eb;
+  --accent-bg: #dbeafe;
+  --ok: #16a34a;
+  --ok-bg: #dcfce7;
+  --warn: #ca8a04;
+  --warn-bg: #fef9c3;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+
+  --radius: 0.6rem;
+  --font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #09090b;
+    --fg: #fafafa;
+    --card: #18181b;
+    --muted: #27272a;
+    --muted-fg: #a1a1aa;
+    --border: #3f3f46;
+    --primary: #fafafa;
+    --primary-fg: #18181b;
+    --accent: #93c5fd;
+    --accent-bg: #172554;
+    --ok: #86efac;
+    --ok-bg: #052e16;
+    --warn: #fde047;
+    --warn-bg: #422006;
+    --danger: #fca5a5;
+    --danger-bg: #450a0a;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 0.3rem;
+}
+
+code,
+pre {
+  font-family: var(--mono);
+}
+
+/* --- Layout utama --- */
+.shell {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  padding: 1.1rem 0.75rem;
+  overflow-y: auto;
+  background-color: var(--card);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary-fg);
+  background-color: var(--primary);
+  border-radius: 0.35rem;
+}
+
+.sidebar-judul {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-sub {
+  font-size: 0.7rem;
+  color: var(--muted-fg);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sidebar-tautan {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.83rem;
+  color: var(--muted-fg);
+  border-radius: var(--radius);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.sidebar-tautan:hover {
+  color: var(--fg);
+  background-color: var(--muted);
+}
+
+.sidebar-tautan.aktif {
+  font-weight: 600;
+  color: var(--fg);
+  background-color: var(--muted);
+}
+
+.sidebar-nomor {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+}
+
+.sidebar-tautan.aktif .sidebar-nomor {
+  color: var(--primary-fg);
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.konten {
+  min-width: 0;
+  padding: 1.5rem 1.75rem 4rem;
+  max-width: 900px;
+}
+
+/* --- Judul topik --- */
+.topik-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topik-judul {
+  margin-top: 0.15rem;
+  font-size: 1.65rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.topik-deskripsi {
+  margin-top: 0.35rem;
+  color: var(--muted-fg);
+}
+
+/* --- Kartu --- */
+.card {
+  padding: 1.1rem;
+  margin-top: 1rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card-judul {
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.prose {
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.prose + .prose {
+  margin-top: 0.6rem;
+}
+
+.prose li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-top: 0.3rem;
+  list-style: none;
+}
+
+.prose li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: var(--muted-fg);
+}
+
+/* --- Code block --- */
+.code {
+  position: relative;
+  margin-top: 0.7rem;
+  overflow-x: auto;
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.code-bahasa {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-fg);
+  border-bottom: 1px solid var(--border);
+}
+
+.code pre {
+  padding: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.code-inline {
+  padding: 0.08rem 0.32rem;
+  font-size: 0.82em;
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+}
+
+/* --- Kontrol demo --- */
+.demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-kolom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--fg);
+  background-color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--border);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  color: var(--primary-fg);
+  background-color: var(--primary);
+}
+
+.btn-aksen {
+  color: var(--accent);
+  background-color: var(--accent-bg);
+}
+
+.input {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.85rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* --- Output / status box --- */
+.output {
+  margin-top: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm, 0.4rem);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.output-ok {
+  border-left-color: var(--ok);
+}
+
+.output-warn {
+  border-left-color: var(--warn);
+}
+
+.output-galat {
+  border-left-color: var(--danger);
+}
+
+/* --- Badge --- */
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 999px;
+  background-color: var(--accent-bg);
+  color: var(--accent);
+}
+
+.badge-ok {
+  background-color: var(--ok-bg);
+  color: var(--ok);
+}
+
+.badge-warn {
+  background-color: var(--warn-bg);
+  color: var(--warn);
+}
+
+.badge-galat {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+}
+
+/* --- Grid & tabel --- */
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.7rem;
+}
+
+.stat {
+  padding: 0.7rem 0.85rem;
+  background-color: var(--muted);
+  border-radius: var(--radius);
+}
+
+.stat-label {
+  font-size: 0.73rem;
+  color: var(--muted-fg);
+}
+
+.stat-nilai {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabel {
+  width: 100%;
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  border-collapse: collapse;
+}
+
+.tabel th,
+.tabel td {
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabel th {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--muted-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tabel tr:last-child td {
+  border-bottom: none;
+}
+
+.langkah {
+  counter-reset: langkah;
+  margin-top: 0.6rem;
+}
+
+.langkah li {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 0.45rem;
+  font-size: 0.87rem;
+  line-height: 1.65;
+}
+
+.langkah li::before {
+  counter-increment: langkah;
+  content: counter(langkah);
+  position: absolute;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+/* --- Navigasi antar topik --- */
+.topik-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 1.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.topik-nav-tautan {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: background-color 0.15s;
+}
+
+.topik-nav-tautan:hover {
+  background-color: var(--muted);
+}
+
+.topik-nav-arah {
+  font-size: 0.7rem;
+  color: var(--muted-fg);
+}
+
+.topik-nav-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.topik-nav-kanan {
+  text-align: right;
+}
+
+/* --- Mobile --- */
+@media (max-width: 820px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  .konten {
+    padding: 1.25rem 1rem 3rem;
+  }
+}

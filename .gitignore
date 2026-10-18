@@ -25,3 +25,32 @@ tmp/
 dist/
 build/
 .cache/
+
+# --- tambahan untuk Pertemuan 3 (React + Vite) ---
+# Output build Vite
+dist-ssr/
+*.local
+
+# Dependensi lebih spesifik (redundan dengan node_modules/, tapi aman)
+.eslintcache
+*.eslintcache
+
+# Laporan test & coverage
+coverage/
+.nyc_output/
+lcov.info
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Lockfile package manager lain (repo ini memakai npm)
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Cache tooling
+.vite/
+.parcel-cache/
+.turbo/

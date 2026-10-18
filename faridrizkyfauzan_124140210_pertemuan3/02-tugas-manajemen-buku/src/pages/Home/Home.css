@@ -1,0 +1,88 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- Ringkasan angka di atas --- */
+.home-ringkas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.5rem;
+}
+
+.home-ringkas-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.6rem 0.75rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.home-ringkas-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-fg);
+}
+
+.home-ringkas-nilai {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Banner mode edit --- */
+.home-edit-banner {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--info-fg);
+  background-color: var(--info-bg);
+  border: 1px solid color-mix(in srgb, var(--info) 25%, transparent);
+  border-radius: var(--radius);
+}
+
+/* --- Layout dua kolom --- */
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.home-kiri {
+  position: sticky;
+  top: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-kanan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.home-reset {
+  align-self: flex-start;
+  color: var(--danger);
+}
+
+.home-reset:hover {
+  background-color: var(--danger-bg);
+}
+
+/* --- Tablet: form pindah ke atas --- */
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-kiri {
+    position: static;
+  }
+}

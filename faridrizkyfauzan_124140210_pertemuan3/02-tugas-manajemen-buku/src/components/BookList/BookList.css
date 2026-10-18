@@ -1,0 +1,27 @@
+.booklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Animasi masuk halus saat buku baru ditambahkan / filter berubah. */
+.booklist > * {
+  animation: booklist-masuk 0.22s ease-out;
+}
+
+@keyframes booklist-masuk {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booklist > * {
+    animation: none;
+  }
+}

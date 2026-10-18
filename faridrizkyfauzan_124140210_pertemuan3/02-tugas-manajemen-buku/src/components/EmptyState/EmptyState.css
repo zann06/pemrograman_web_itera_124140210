@@ -1,0 +1,39 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 2.75rem 1.25rem;
+  text-align: center;
+  background-color: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.empty-ikon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--muted-fg);
+  background-color: var(--muted);
+  border-radius: 999px;
+}
+
+.empty-judul {
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.empty-pesan {
+  max-width: 42ch;
+  font-size: 0.85rem;
+  color: var(--muted-fg);
+}
+
+.empty .btn {
+  margin-top: 0.6rem;
+}

@@ -12,6 +12,7 @@ Repository praktikum Pemrograman Web ITERA.
 |---|---|---|
 | 1 | [faridrizkyfauzan_124140210_pertemuan1](faridrizkyfauzan_124140210_pertemuan1) | Tugas Mini POS + folder `modul/` (praktikum & latihan JavaScript Dasar) |
 | 2 | [faridrizkyfauzan_124140210_pertemuan2](faridrizkyfauzan_124140210_pertemuan2) | Praktikum JS Next Gen (12 demo ES6+) + Tugas Personal Student Dashboard |
+| 3 | [faridrizkyfauzan_124140210_pertemuan3](faridrizkyfauzan_124140210_pertemuan3) | Praktikum React Basics (7 topik interaktif) + Tugas Aplikasi Manajemen Buku |
 
 ## 🔗 Coba Langsung
 
@@ -217,3 +218,117 @@ Prinsip yang diterapkan: **encapsulation** (`#tasks` private field), **immutabil
 |---|---|
 | ![Run demo](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/01-run-demo-bagian-atas.png) | ![Demo async](faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/screenshots/03-demo-async-promise-await.png) |
 
+---
+
+# Pertemuan 3 - React Basics
+
+Topik pertemuan ini adalah **React** - perpindahan dari JavaScript murni ke
+arsitektur berbasis komponen. Pengumpulan ini berisi dua bagian, mengikuti
+pola Pertemuan 1 dan 2.
+
+```bash
+# Bagian 1 - Praktikum (http://localhost:5173)
+cd faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics
+npm install && npm run dev
+
+# Bagian 2 - Tugas (http://localhost:5174)
+cd ../02-tugas-manajemen-buku
+npm install && npm run dev
+```
+
+> Keduanya memakai **Vite + React 19**, jadi harus dijalankan lewat `npm run dev`.
+> Membuka `index.html` langsung dengan double-click tidak akan bekerja.
+
+## Struktur Folder
+
+```
+faridrizkyfauzan_124140210_pertemuan3/
+├── 01-praktikum-react-basics/        # 7 topik, tiap topik 1 file
+│   └── src/topics/Topic1.jsx ... Topic7.jsx
+└── 02-tugas-manajemen-buku/           # Aplikasi Manajemen Buku
+    └── src/
+        ├── context/BookContext.jsx    # Global state (Context API)
+        ├── hooks/                     # 4 custom hook
+        ├── components/                # 8 komponen reusable
+        ├── pages/                     # Home, Stats, About
+        └── __tests__/                 # 73 unit test
+```
+
+## Bagian 1 — Praktikum: 7 Topik React
+
+| # | Topik | Yang Didemonstrasikan |
+|---|---|---|
+| 1 | Setup Project React | Perintah Vite, struktur folder, sintaks JSX |
+| 2 | Components & Props | Props, `children`, komposisi, `key` pada list |
+| 3 | State & Hooks | `useState`, derived state, `useEffect` + cleanup |
+| 4 | React Router | Nested route + `Outlet`, `useParams`, `useNavigate` |
+| 5 | Custom Hook | `useCounter`, `useDebounce`, `useToggle` |
+| 6 | Context API | Props drilling vs provider-consumer |
+| 7 | Testing | Vitest + RTL, query berbasis aksesibilitas |
+
+Setiap halaman punya penjelasan singkat, potongan kode, dan demo yang bisa
+diklik langsung.
+
+📖 Dokumentasi rinci: [`01-praktikum-react-basics/README.md`](faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/README.md)
+
+## Bagian 2 — Tugas: Aplikasi Manajemen Buku
+
+Aplikasi manajemen buku pribadi — catatan buku yang **dimiliki**, **sedang
+dibaca**, dan **ingin dibeli**, dipisahkan agar keputusan baca berikutnya lebih
+mudah diambil.
+
+### Fitur
+- **CRUD lengkap** — tambah, edit, hapus (dengan dialog konfirmasi), tandai favorit
+- **Filter & pencarian** — 3 status, cari judul/penulis realtime, 5 opsi sorting
+- **Halaman statistik** — total, penulis unik, rata-rata tahun, progress bar distribusi
+- **Penyimpanan lokal** — `localStorage` dengan penanganan JSON rusak & kuota penuh
+- **Validasi form** — pesan error per field, hanya muncul setelah field disentuh
+- **UX** — toast, empty state terpisah untuk "kosong" vs "tidak cocok", tema gelap, responsif
+
+### Konsep React yang diterapkan
+
+| Konsep | Implementasi |
+|---|---|
+| Context API | `BookProvider` menyimpan seluruh koleksi; 8 komponen membacanya tanpa props drilling |
+| Custom hook | `useLocalStorage`, `useBookStats`, `useBookFilter`, `useToast` |
+| React Router | `HashRouter` dengan 3 halaman + route 404 |
+| Controlled components | Seluruh input controlled; reset form satu baris |
+| Optimasi render | `useMemo` pada context value, `useCallback` pada action, `key` berbasis `book.id` |
+| PropTypes | Setiap komponen punya kontrak props lengkap |
+
+### Dua keputusan yang perlu dijelaskan
+
+1. **`HashRouter`, bukan `BrowserRouter`** — API-nya identik, tetapi URL-nya
+   berawalan `/#/` sehingga aplikasi bisa dibuka dari hosting statis (GitHub
+   Pages) tanpa rewrite di server. Repository ini memang dideploy ke sana.
+2. **`defaultProps` tidak dipakai** — sudah dihapus mulai React 19. Semua nilai
+   default ditulis sebagai default parameter di tanda tangan fungsi.
+
+📖 Dokumentasi rinci: [`02-tugas-manajemen-buku/README.md`](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/README.md)
+
+## Verifikasi Pertemuan 3
+
+| Pemeriksaan | Praktikum | Tugas |
+|---|---:|---:|
+| Unit test (`npm test`) | 15/15 | 73/73 |
+| Build produksi (`npm run build`) | sukses | sukses |
+| Komponen reusable | 1 | 8 |
+| Custom hook | 3 | 4 |
+
+Total **88 pengujian otomatis lulus, 0 gagal**.
+
+Bug yang ditemukan dan diperbaiki lewat pengujian otomatis:
+
+1. **Node 22+ menimpa `localStorage` jsdom** → seluruh test gagal dengan
+   `localStorage.clear is not a function` → dipasang shim Storage in-memory
+   di `setupTests.js`
+2. **`defaultProps` tidak berlaku di React 19** → `labelKonfirmasi` menjadi
+   `undefined` dan tombol dialog renders kosong → diganti default parameter
+3. **Data dari `localStorage` tidak dinormalisasi** → buku dengan status tak
+   dikenal membuat halaman Statistik gagal → normalisasi dipindah ke provider
+4. **`hapus()` langsung ditulis ulang oleh efek** → key storage "hidup" lagi
+   setelah dihapus → ditambah flag penulisan yang dilewati sekali
+5. **Nested route render `<Outlet />`, bukan `children`** → area route anak
+   kosong di Topik 4 → diganti ke `<Outlet />`
+6. **`NavLink` dengan `className` string tidak mendapat class aktif** →
+   penanda tautan aktif tidak muncul → `className` dijadikan fungsi

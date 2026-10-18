@@ -1,0 +1,61 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  padding-top: 1.35rem;
+  padding-bottom: 2.5rem;
+}
+
+/* --- Kepala halaman (dipakai Home/Stats/About) --- */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.page-judul {
+  font-size: 1.4rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.page-subjudul {
+  font-size: 0.875rem;
+  color: var(--muted-fg);
+}
+
+/* --- Footer --- */
+.app-footer {
+  border-top: 1px solid var(--border);
+  background-color: var(--card);
+}
+
+.app-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.78rem;
+  color: var(--muted-fg);
+}
+
+@media (max-width: 520px) {
+  .app-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

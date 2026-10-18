@@ -1,0 +1,60 @@
+.bookform {
+  padding: 1.1rem;
+}
+
+.bookform-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.bookform form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.bookform-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.bookform-check input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.bookform-aksi {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Kolom tahun dibuat ringkas supaya form tidak terlalu tinggi di layar kecil. */
+.bookform .field:has(input[type='number']) {
+  max-width: 180px;
+}
+
+@media (max-width: 520px) {
+  .bookform .field:has(input[type='number']) {
+    max-width: none;
+  }
+
+  .bookform-aksi {
+    flex-direction: column-reverse;
+  }
+
+  .bookform-aksi .btn {
+    width: 100%;
+  }
+}

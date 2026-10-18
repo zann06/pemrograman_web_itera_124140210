@@ -1,0 +1,137 @@
+.bookcard {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.bookcard:hover {
+  border-color: color-mix(in srgb, var(--fg) 22%, var(--border));
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+/* Garunang tipis di sisi kiri menandai buku favorit. */
+.bookcard-favorit {
+  border-left: 3px solid var(--warning);
+  padding-left: calc(0.85rem - 2px);
+}
+
+.bookcard-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  user-select: none;
+}
+
+.bookcard-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookcard-judulbaris {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.bookcard-judul {
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookcard-favorit {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted-fg);
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.bookcard-favorit:hover {
+  color: var(--fg);
+  background-color: var(--muted);
+}
+
+.bookcard-favorit.nyala {
+  color: var(--warning);
+}
+
+.bookcard-penulis {
+  font-size: 0.8125rem;
+  color: var(--muted-fg);
+}
+
+.bookcard-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+}
+
+.bookcard-tahun,
+.bookcard-tanggal {
+  font-size: 0.75rem;
+  color: var(--muted-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.bookcard-catatan {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.8125rem;
+  color: var(--muted-fg);
+  background-color: var(--muted);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--border);
+}
+
+.bookcard-aksi {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.25rem;
+}
+
+.bookcard-hapus {
+  color: var(--danger);
+}
+
+.bookcard-hapus:hover {
+  background-color: var(--danger-bg);
+}
+
+@media (max-width: 620px) {
+  .bookcard {
+    flex-wrap: wrap;
+  }
+
+  .bookcard-body {
+    flex-basis: calc(100% - 40px - 0.85rem);
+  }
+
+  .bookcard-aksi {
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+}
