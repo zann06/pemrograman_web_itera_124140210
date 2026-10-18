@@ -1,5 +1,8 @@
 node_modules/
-dist/
+# `dist/` sengaja ikut di-commit: GitHub Pages pada repo ini menyajikan branch
+# `main` apa adanya, jadi hasil build perlu ikut agar aplikasi bisa dibuka
+# langsung lewat browser. Jalankan ulang `npm run build` setiap kali src berubah.
+!dist/
 dist-ssr/
 *.local
 

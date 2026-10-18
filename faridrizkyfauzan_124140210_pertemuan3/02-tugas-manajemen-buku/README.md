@@ -63,6 +63,16 @@ npm run dev
 Browser akan terbuka otomatis di `http://localhost:5174`. Hentikan server
 dengan menekan `Ctrl + C`.
 
+### Coba Langsung
+
+Aplikasi ini sudah dideploy di GitHub Pages dan bisa dibuka tanpa install:
+
+<https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/index.html>
+
+> Versi online adalah hasil `npm run build` yang ikut di-commit di folder
+> `dist/`, karena GitHub Pages menyajikan branch `main` apa adanya. Kalau
+> `src/` berubah, jalankan ulang `npm run build` lalu commit ulang `dist/`.
+
 ### Perintah lain
 
 | Perintah | Fungsi |
@@ -140,6 +150,7 @@ warna bisa diubah dari satu tempat.
 ├── index.html                  # Shell HTML, hanya berisi <div id="root">
 ├── package.json
 ├── vite.config.js              # Konfigurasi Vite + Vitest
+├── dist/                       # Hasil `npm run build`, ikut di-commit untuk GitHub Pages
 ├── docs/
 │   ├── screenshots/            # 8 tangkapan layar untuk laporan
 │   └── README-screenshots.txt  # Panduan nama file tiap screenshot

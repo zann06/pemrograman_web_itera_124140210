@@ -19,16 +19,20 @@ Repository praktikum Pemrograman Web ITERA.
 Aplikasi di repository ini **sudah dideploy** di GitHub Pages dan bisa
 dibuka langsung tanpa install apa pun:
 
-| Aplikasi | Tautan Langsung |
-|---|---|
-| **Tugas** — Personal Student Dashboard | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/index.html> |
-| **Praktikum** — Demo Lab 12 Fitur ES6+ | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/index.html> |
-| **Repository** | <https://github.com/zann06/pemrograman_web_itera_124140210> |
+| Aplikasi | Pertemuan | Tautan Langsung |
+|---|---|---|
+| **Tugas** — Aplikasi Manajemen Buku | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/index.html> |
+| **Praktikum** — 7 Topik React | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/index.html> |
+| **Tugas** — Personal Student Dashboard | 2 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/index.html> |
+| **Praktikum** — Demo Lab 12 Fitur ES6+ | 2 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/index.html> |
+| **Repository** | - | <https://github.com/zann06/pemrograman_web_itera_124140210> |
 
 > **Catatan:**
-> - Widget cuaca & kutipan membutuhkan koneksi internet.
-> - Data tugas/catatan disimpan di `localStorage` browser masing-masing,
+> - Widget cuaca & kutipan (Pertemuan 2) membutuhkan koneksi internet.
+> - Data tugas/catatan/buku disimpan di `localStorage` browser masing-masing,
 >   jadi data Anda tidak bercampur dengan pengunjung lain.
+> - Dua aplikasi Pertemuan 3 memakai **Vite**, jadi yang disajikan GitHub Pages
+>   adalah hasil `npm run build` yang ikut di-commit di folder `dist/`.
 
 ---
 
