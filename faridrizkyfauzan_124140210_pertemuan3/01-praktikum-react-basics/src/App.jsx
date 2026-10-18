@@ -6,7 +6,14 @@
  * server tambahan.
  */
 
-import { HashRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  HashRouter,
+  Link,
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
 import Topic1 from './topics/Topic1.jsx';
 import Topic2 from './topics/Topic2.jsx';
 import Topic3 from './topics/Topic3.jsx';
@@ -41,14 +48,18 @@ function Sidebar() {
 
       <nav className="sidebar-nav" aria-label="Daftar topik">
         {TOPIK.map(({ no, path, label }) => (
-          <Link
+          // NavLink (bukan Link) karena `className` sebagai fungsi hanya
+          // diproses oleh NavLink. Pada `Link`, fungsi className diteruskan
+          // apa adanya ke DOM lalu diabaikan React, sehingga styling tautan
+          // dan penanda aktif hilang sama sekali.
+          <NavLink
             key={path}
             to={path}
             className={({ isActive }) => `sidebar-tautan${isActive ? ' aktif' : ''}`}
           >
             <span className="sidebar-nomor">{no}</span>
             <span>{label}</span>
-          </Link>
+          </NavLink>
         ))}
       </nav>
     </aside>
@@ -115,7 +126,7 @@ function Beranda() {
 
       <section className="card">
         <h2 className="card-judul">Cara menjalankan</h2>
-        <pre style={{ padding: '0.8rem', fontSize: '0.8rem', overflowX: 'auto' }}>
+        <pre className="code" style={{ padding: '0.8rem', fontSize: '0.8rem', marginTop: 0 }}>
           <code>{`npm install
 npm run dev`}</code>
         </pre>
