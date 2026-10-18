@@ -81,8 +81,8 @@ install apa pun:
 
 | Aplikasi | Tautan |
 |---|---|
-| Tugas — Aplikasi Manajemen Buku | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/index.html> |
-| Praktikum — 7 Topik React | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/index.html> |
+| Tugas — Aplikasi Manajemen Buku | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/dist/index.html> |
+| Praktikum — 7 Topik React | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/dist/index.html> |
 
 Keduanya memakai Vite, jadi yang disajikan adalah hasil `npm run build` yang
 ikut di-commit di folder `dist/`. Kalau `src/` berubah, jalankan ulang

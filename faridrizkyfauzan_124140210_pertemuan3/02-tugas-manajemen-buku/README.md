@@ -67,7 +67,7 @@ dengan menekan `Ctrl + C`.
 
 Aplikasi ini sudah dideploy di GitHub Pages dan bisa dibuka tanpa install:
 
-<https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/index.html>
+<https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/dist/index.html>
 
 > Versi online adalah hasil `npm run build` yang ikut di-commit di folder
 > `dist/`, karena GitHub Pages menyajikan branch `main` apa adanya. Kalau

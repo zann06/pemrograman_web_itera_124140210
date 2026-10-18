@@ -21,8 +21,8 @@ dibuka langsung tanpa install apa pun:
 
 | Aplikasi | Pertemuan | Tautan Langsung |
 |---|---|---|
-| **Tugas** — Aplikasi Manajemen Buku | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/index.html> |
-| **Praktikum** — 7 Topik React | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/index.html> |
+| **Tugas** — Aplikasi Manajemen Buku | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/dist/index.html> |
+| **Praktikum** — 7 Topik React | 3 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan3/01-praktikum-react-basics/dist/index.html> |
 | **Tugas** — Personal Student Dashboard | 2 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/02-tugas-personal-dashboard/index.html> |
 | **Praktikum** — Demo Lab 12 Fitur ES6+ | 2 | <https://zann06.github.io/pemrograman_web_itera_124140210/faridrizkyfauzan_124140210_pertemuan2/01-praktikum-js-nextgen/index.html> |
 | **Repository** | - | <https://github.com/zann06/pemrograman_web_itera_124140210> |
