@@ -15,7 +15,10 @@
   transform: translateY(-1px);
 }
 
-/* Garunang tipis di sisi kiri menandai buku favorit. */
+/* Garunang tipis di sisi kiri menandai buku favorit.
+   Nama class tombol di bawah sengaja memakai sufiks `-tombol` supaya tidak
+   bentrok dengan modifier kartu ini - kalau sama, aturan `display: grid` dari
+   tombol ikut menimpa kartu dan isinya tergencet. */
 .bookcard-favorit {
   border-left: 3px solid var(--warning);
   padding-left: calc(0.85rem - 2px);
@@ -53,7 +56,7 @@
   white-space: nowrap;
 }
 
-.bookcard-favorit {
+.bookcard-favorit-tombol {
   flex-shrink: 0;
   display: grid;
   place-items: center;
@@ -66,12 +69,12 @@
   transition: color 0.15s, background-color 0.15s;
 }
 
-.bookcard-favorit:hover {
+.bookcard-favorit-tombol:hover {
   color: var(--fg);
   background-color: var(--muted);
 }
 
-.bookcard-favorit.nyala {
+.bookcard-favorit-tombol.nyala {
   color: var(--warning);
 }
 

@@ -40,6 +40,7 @@ faridrizkyfauzan_124140210_pertemuan3/
     ├── index.html
     ├── package.json
     ├── vite.config.js
+    ├── docs/screenshots/ (8 screenshot)
     └── src/
         ├── main.jsx
         ├── App.jsx
@@ -83,6 +84,22 @@ Rincian lengkap ada di README masing-masing folder.
 | Tugas | Aplikasi manajemen buku pribadi dengan CRUD, filter, pencarian, dan statistik | 73 unit test |
 
 **Total 88 pengujian otomatis, semuanya lulus.**
+
+---
+
+## Kernelshoot
+
+| Koleksi utama | Validasi error | Halaman statistik |
+|---|---|---|
+| ![Koleksi utama](02-tugas-manajemen-buku/docs/screenshots/01-koleksi-utama.png) | ![Validasi error](02-tugas-manajemen-buku/docs/screenshots/03-validasi-error.png) | ![Statistik](02-tugas-manajemen-buku/docs/screenshots/06-halaman-statistik.png) |
+
+| Filter dan pencarian | Dialog konfirmasi hapus | Tampilan mobile |
+|---|---|---|
+| ![Filter pencarian](02-tugas-manajemen-buku/docs/screenshots/04-filter-pencarian.png) | ![Dialog hapus](02-tugas-manajemen-buku/docs/screenshots/05-dialog-hapus.png) | ![Mobile](02-tugas-manajemen-buku/docs/screenshots/07-tampilan-mobile.png) |
+
+Laporan eksekusi unit test (`npm test`):
+
+![Laporan testing](02-tugas-manajemen-buku/docs/screenshots/08-laporan-testing.png)
 
 ---
 

@@ -306,6 +306,20 @@ mudah diambil.
 
 📖 Dokumentasi rinci: [`02-tugas-manajemen-buku/README.md`](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/README.md)
 
+### Tangkapan Layar — Pertemuan 3
+
+| Koleksi utama | Validasi error | Halaman statistik |
+|---|---|---|
+| ![Koleksi utama](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/01-koleksi-utama.png) | ![Validasi error](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/03-validasi-error.png) | ![Statistik](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/06-halaman-statistik.png) |
+
+| Filter dan pencarian | Dialog konfirmasi hapus | Tampilan mobile |
+|---|---|---|
+| ![Filter pencarian](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/04-filter-pencarian.png) | ![Dialog hapus](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/05-dialog-hapus.png) | ![Mobile](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/07-tampilan-mobile.png) |
+
+Laporan eksekusi unit test (`npm test`):
+
+![Laporan testing](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/08-laporan-testing.png)
+
 ## Verifikasi Pertemuan 3
 
 | Pemeriksaan | Praktikum | Tugas |
@@ -332,3 +346,7 @@ Bug yang ditemukan dan diperbaiki lewat pengujian otomatis:
    kosong di Topik 4 → diganti ke `<Outlet />`
 6. **`NavLink` dengan `className` string tidak mendapat class aktif** →
    penanda tautan aktif tidak muncul → `className` dijadikan fungsi
+7. **Class `.bookcard-favorit` dipakai dua kali** (modifier kartu + tombol
+   favorit) → aturan `display: grid` dari tombol menimpa kartu sehingga isi
+   kartu favorit tergencet dan saling menumpuk → tombol diganti ke
+   `.bookcard-favorit-tombol`

@@ -140,6 +140,9 @@ warna bisa diubah dari satu tempat.
 ├── index.html                  # Shell HTML, hanya berisi <div id="root">
 ├── package.json
 ├── vite.config.js              # Konfigurasi Vite + Vitest
+├── docs/
+│   ├── screenshots/            # 8 tangkapan layar untuk laporan
+│   └── README-screenshots.txt  # Panduan nama file tiap screenshot
 └── src/
     ├── main.jsx                # Entry point: createRoot + StrictMode
     ├── App.jsx                 # HashRouter, routes, provider global
@@ -518,6 +521,10 @@ mencakup seluruh lapisan aplikasi.
 npm test
 ```
 
+Hasil eksekusi tersimpan sebagai tangkapan layar di
+[`docs/screenshots/08-laporan-testing.png`](docs/screenshots/08-laporan-testing.png)
+- `Test Files 9 passed (9)` dan `Tests 73 passed (73)`, 0 gagal.
+
 ### Ringkasan
 
 | File test | Jumlah test | Cakupan |
@@ -577,17 +584,25 @@ konsisten di semua versi Node.
 
 ## Kcreenshoot
 
-Folder `docs/screenshots/` berisi tangkapan layar untuk laporan:
+Folder `docs/screenshots/` berisi tangkapan layar untuk laporan.
 
-| File | Isi |
+### Tampilan utama
+
+| Koleksi utama | Tambah buku | Validasi error |
+|---|---|---|
+| ![Koleksi utama](docs/screenshots/01-koleksi-utama.png) | ![Tambah buku](docs/screenshots/02-tambah-buku.png) | ![Validasi error](docs/screenshots/03-validasi-error.png) |
+
+### Fitur dan navigasi
+
+| Filter dan pencarian | Dialog konfirmasi hapus | Halaman statistik |
+|---|---|---|
+| ![Filter pencarian](docs/screenshots/04-filter-pencarian.png) | ![Dialog hapus](docs/screenshots/05-dialog-hapus.png) | ![Statistik](docs/screenshots/06-halaman-statistik.png) |
+
+### Responsif dan laporan testing
+
+| Tampilan mobile (390 px) | Laporan `npm test` |
 |---|---|
-| `01-koleksi-utama.png` | Halaman Koleksi dengan data contoh |
-| `02-tambah-buku.png` | Form pengisian buku baru |
-| `03-validasi-error.png` | Pesan error pada field kosong |
-| `04-filter-pencarian.png` | Pencarian dan filter status aktif |
-| `05-dialog-hapus.png` | Dialog konfirmasi hapus buku |
-| `06-halaman-statistik.png` | Statistik koleksi |
-| `07-tampilan-mobile.png` | Tampilan pada layar sempit |
+| ![Tampilan mobile](docs/screenshots/07-tampilan-mobile.png) | ![Laporan testing](docs/screenshots/08-laporan-testing.png) |
 
 ---
 

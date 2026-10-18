@@ -27,7 +27,7 @@ function BookCard({ book, onEdit, onHapus, onToggleFavorit }) {
           </h3>
           <button
             type="button"
-            className={`bookcard-favorit ${book.favorit ? 'nyala' : ''}`}
+            className={`bookcard-favorit-tombol ${book.favorit ? 'nyala' : ''}`}
             onClick={() => onToggleFavorit(book.id)}
             aria-pressed={Boolean(book.favorit)}
             aria-label={
