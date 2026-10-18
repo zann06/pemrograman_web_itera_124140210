@@ -320,33 +320,3 @@ Laporan eksekusi unit test (`npm test`):
 
 ![Laporan testing](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/08-laporan-testing.png)
 
-## Verifikasi Pertemuan 3
-
-| Pemeriksaan | Praktikum | Tugas |
-|---|---:|---:|
-| Unit test (`npm test`) | 15/15 | 73/73 |
-| Build produksi (`npm run build`) | sukses | sukses |
-| Komponen reusable | 1 | 8 |
-| Custom hook | 3 | 4 |
-
-Total **88 pengujian otomatis lulus, 0 gagal**.
-
-Bug yang ditemukan dan diperbaiki lewat pengujian otomatis:
-
-1. **Node 22+ menimpa `localStorage` jsdom** → seluruh test gagal dengan
-   `localStorage.clear is not a function` → dipasang shim Storage in-memory
-   di `setupTests.js`
-2. **`defaultProps` tidak berlaku di React 19** → `labelKonfirmasi` menjadi
-   `undefined` dan tombol dialog renders kosong → diganti default parameter
-3. **Data dari `localStorage` tidak dinormalisasi** → buku dengan status tak
-   dikenal membuat halaman Statistik gagal → normalisasi dipindah ke provider
-4. **`hapus()` langsung ditulis ulang oleh efek** → key storage "hidup" lagi
-   setelah dihapus → ditambah flag penulisan yang dilewati sekali
-5. **Nested route render `<Outlet />`, bukan `children`** → area route anak
-   kosong di Topik 4 → diganti ke `<Outlet />`
-6. **`NavLink` dengan `className` string tidak mendapat class aktif** →
-   penanda tautan aktif tidak muncul → `className` dijadikan fungsi
-7. **Class `.bookcard-favorit` dipakai dua kali** (modifier kartu + tombol
-   favorit) → aturan `display: grid` dari tombol menimpa kartu sehingga isi
-   kartu favorit tergencet dan saling menumpuk → tombol diganti ke
-   `.bookcard-favorit-tombol`
