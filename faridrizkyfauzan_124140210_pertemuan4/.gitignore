@@ -1,0 +1,27 @@
+# --- Python: Pertemuan 4 ---
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Cache & bytecode Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribusi / packaging
+build/
+dist/
+*.egg-info/
+
+# Laporan test & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env
+
+# File junk Windows
+Thumbs.db
+Desktop.ini

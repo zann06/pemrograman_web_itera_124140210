@@ -13,6 +13,8 @@ Repository praktikum Pemrograman Web ITERA.
 | 1 | [faridrizkyfauzan_124140210_pertemuan1](faridrizkyfauzan_124140210_pertemuan1) | Tugas Mini POS + folder `modul/` (praktikum & latihan JavaScript Dasar) |
 | 2 | [faridrizkyfauzan_124140210_pertemuan2](faridrizkyfauzan_124140210_pertemuan2) | Praktikum JS Next Gen (12 demo ES6+) + Tugas Personal Student Dashboard |
 | 3 | [faridrizkyfauzan_124140210_pertemuan3](faridrizkyfauzan_124140210_pertemuan3) | Praktikum React Basics (7 topik interaktif) + Tugas Aplikasi Manajemen Buku |
+| 4 | [faridrizkyfauzan_124140210_pertemuan4](faridrizkyfauzan_124140210_pertemuan4) | Praktikum Python Dasar (6 topik + 6 latihan) + Tugas BMI, Nilai Mahasiswa & Modul Matematika |
+| 4 | [faridrizkyfauzan_124140210_pertemuan4](faridrizkyfauzan_124140210_pertemuan4) | Tugas Python Dasar: Penghitung BMI, Pengelolaan Nilai Mahasiswa, Modul Matematika |
 
 ## 🔗 Coba Langsung
 
@@ -323,4 +325,118 @@ mudah diambil.
 Laporan eksekusi unit test (`npm test`):
 
 ![Laporan testing](faridrizkyfauzan_124140210_pertemuan3/02-tugas-manajemen-buku/docs/screenshots/08-laporan-testing.png)
+
+---
+
+# Pertemuan 4 - Python Dasar
+
+Topik pertemuan ini adalah **Python Dasar** — perpindahan dari frontend
+(JavaScript/React) ke fondasi backend. Pengumpulan berisi dua bagian:
+materi praktikum (6 berkas topik + 6 latihan mandiri) dan tugas (3 program
+Python). Berbeda dengan pertemuan sebelumnya, hasilnya berupa program
+terminal yang dijalankan dengan interpreter Python, bukan aplikasi web.
+
+```bash
+# Tugas - dijalankan dari dalam folder pertemuan 4
+cd faridrizkyfauzan_124140210_pertemuan4
+python tugas1_bmi.py               # input berat (kg) & tinggi (m)
+python tugas2_nilai_mahasiswa.py   # tabel nilai + grade + tertinggi/terendah
+python main.py                     # uji seluruh fungsi modul math_operations
+```
+
+## Struktur Folder
+
+```
+faridrizkyfauzan_124140210_pertemuan4/
+├── tugas1_bmi.py                  # Tugas 1 (30%) - Penghitung BMI
+├── tugas2_nilai_mahasiswa.py      # Tugas 2 (40%) - Pengelolaan Nilai Mahasiswa
+├── math_operations.py             # Tugas 3 (30%) - Modul matematika (geometri + suhu)
+├── main.py                        # Tugas 3 (30%) - Program utama, 2 cara impor
+├── screenshots/                   # Bukti eksekusi terminal
+└── praktikum/                     # 6 berkas topik + latihan/ (6 latihan mandiri)
+```
+
+## Bagian 1 — Tugas
+
+| # | Program | Poin Utama | Bobot |
+|---|---|---|---|
+| 1 | `tugas1_bmi.py` | Input tervalidasi, rumus BMI, kategori if-elif-else (4 kategori), f-string 2 desimal | 30% |
+| 2 | `tugas2_nilai_mahasiswa.py` | List 6 dictionary, bobot 30/40/30, grade A–E, tabel perataan f-string, tertinggi & terendah | 40% |
+| 3 | `math_operations.py` + `main.py` | 6 fungsi geometri, 2 konversi suhu, konstanta PI, `if __name__ == "__main__"`, 2 cara impor berbeda | 30% |
+
+## Bagian 2 — Praktikum
+
+| # | Berkas | Materi |
+|---|---|---|
+| 1 | `01_pengenalan.py` | `print()`, `sep`, `end`, escape character |
+| 2 | `02_variabel.py` | tipe data, `type()`, f-string, slicing, casting, `input()` |
+| 3 | `03_kendali.py` | if/elif/else, ternary, `range()`, `enumerate()`, while + break/continue/else |
+| 4 | `04_fungsi.py` | default arg, multiple return, `*args`/`**kwargs`, lambda + `sorted()` |
+| 5 | `05_struktur_data.py` | list ops, comprehension, tuple, dict + `.get()`, set operations |
+| 6 | `06_modul_app.py` | standard library (math, random, datetime) + modul kustom |
+
+Latihan mandiri (identitas, suhu, tebak angka, validator password, kontak,
+generator password) ada di `praktikum/latihan/`.
+
+📖 Dokumentasi rinci: [`faridrizkyfauzan_124140210_pertemuan4/README.md`](faridrizkyfauzan_124140210_pertemuan4/README.md)
+
+### Tangkapan Layar — Pertemuan 4
+
+| Tugas 1 — BMI | Tugas 2 — Tabel nilai | Tugas 3 — Modul |
+|---|---|---|
+| ![Tugas 1](faridrizkyfauzan_124140210_pertemuan4/screenshots/01-tugas1-bmi.png) | ![Tugas 2](faridrizkyfauzan_124140210_pertemuan4/screenshots/02-tugas2-nilai.png) | ![Tugas 3](faridrizkyfauzan_124140210_pertemuan4/screenshots/03-tugas3-modul.png) |
+
+---
+
+# Pertemuan 4 - Python Dasar
+
+Topik pertemuan ini adalah **Python Dasar** — fondasi bahasa Python sebelum
+masuk ke Python OOP (Pertemuan 5) dan framework Pyramid. Pengumpulan ini
+berisi tiga tugas praktikum: penghitung BMI, pengelolaan data nilai
+mahasiswa, dan modul matematika beserta program penggunanya.
+
+```bash
+# Soal 1 - Penghitung BMI (interaktif, input berat & tinggi)
+cd faridrizkyfauzan_124140210_pertemuan4
+python tugas1_bmi.py
+
+# Soal 2 - Pengelolaan Data Nilai Mahasiswa
+python tugas2_nilai_mahasiswa.py
+
+# Soal 3 - Modul matematika + program utama
+python main.py
+python math_operations.py   # opsional: uji mandiri modul
+```
+
+> Hanya butuh **Python 3** tanpa instalasi paket apa pun — seluruh program
+> memakai standard library.
+
+## Struktur Folder
+
+```
+faridrizkyfauzan_124140210_pertemuan4/
+├── README.md                   # Dokumentasi lengkap
+├── .gitignore                  # venv/ dan __pycache__/ tidak ikut ke Git
+├── tugas1_bmi.py               # Soal 1 - Penghitung BMI (30%)
+├── tugas2_nilai_mahasiswa.py   # Soal 2 - Pengelolaan Nilai Mahasiswa (40%)
+├── math_operations.py          # Soal 3A - Modul matematika (30%)
+├── main.py                     # Soal 3B - Program utama (2 cara impor)
+└── screenshots/                # Bukti eksekusi terminal
+```
+
+## Ringkasan Tugas
+
+| Soal | Berkas | Konsep yang Diuji | Hasil Uji |
+|---|---|---|---|
+| 1 | `tugas1_bmi.py` | `input()` + casting `float`, rumus `BMI = berat / (tinggi × tinggi)`, percabangan `if-elif-else` 4 kategori, f-string `:.2f` | 65 kg / 1.70 m → BMI 22.49 (Berat badan normal) |
+| 2 | `tugas2_nilai_mahasiswa.py` | List of dictionary (6 mahasiswa), formula 30% UTS + 40% UAS + 30% Tugas, grade A–E, tabel f-string rapi, `max()`/`min()` + `lambda` | Tertinggi 92.60 (A), Terendah 39.50 (E), rata-rata 67.28 |
+| 3 | `math_operations.py` + `main.py` | Modul kustom: 3 bangun (luas & keliling), 2 konversi suhu, konstanta `PI`, `if __name__ == "__main__"`, impor `import` & `from ... import ...` | Seluruh 9 fungsi + PI teruji di `main.py` |
+
+### Tangkapan Layar — Pertemuan 4
+
+| Soal 1 - BMI | Soal 2 - Tabel nilai | Soal 3 - Modul |
+|---|---|---|
+| ![BMI](faridrizkyfauzan_124140210_pertemuan4/screenshots/1-tugas1-bmi.png) | ![Nilai](faridrizkyfauzan_124140210_pertemuan4/screenshots/2-tugas2-nilai-mahasiswa.png) | ![Modul](faridrizkyfauzan_124140210_pertemuan4/screenshots/3-tugas3-modul-matematika.png) |
+
+📖 Dokumentasi rinci: [`faridrizkyfauzan_124140210_pertemuan4/README.md`](faridrizkyfauzan_124140210_pertemuan4/README.md)
 
