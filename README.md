@@ -392,8 +392,9 @@ generator password) ada di `praktikum/latihan/`.
 
 Topik pertemuan ini adalah **Python Dasar** — fondasi bahasa Python sebelum
 masuk ke Python OOP (Pertemuan 5) dan framework Pyramid. Pengumpulan ini
-berisi tiga tugas praktikum: penghitung BMI, pengelolaan data nilai
-mahasiswa, dan modul matematika beserta program penggunanya.
+berisi materi praktikum (6 topik + 6 latihan mandiri) dan tiga tugas
+praktikum: penghitung BMI, pengelolaan data nilai mahasiswa, dan modul
+matematika beserta program penggunanya.
 
 ```bash
 # Soal 1 - Penghitung BMI (interaktif, input berat & tinggi)
@@ -408,7 +409,7 @@ python main.py
 python math_operations.py   # opsional: uji mandiri modul
 ```
 
-> Hanya butuh **Python 3** tanpa instalasi paket apa pun — seluruh program
+> Hanya butuh **Python 3.8+** tanpa instalasi paket apa pun — seluruh program
 > memakai standard library.
 
 ## Struktur Folder
@@ -421,6 +422,10 @@ faridrizkyfauzan_124140210_pertemuan4/
 ├── tugas2_nilai_mahasiswa.py   # Soal 2 - Pengelolaan Nilai Mahasiswa (40%)
 ├── math_operations.py          # Soal 3A - Modul matematika (30%)
 ├── main.py                     # Soal 3B - Program utama (2 cara impor)
+├── praktikum/                  # Materi praktikum (mengikuti modul)
+│   ├── 01_pengenalan.py ... 06_modul_app.py
+│   ├── kalkulator_lib.py       # Modul kustom aritmatika
+│   └── latihan/                # 6 latihan mandiri + modul password_gen
 └── screenshots/                # Bukti eksekusi terminal
 ```
 
@@ -428,15 +433,15 @@ faridrizkyfauzan_124140210_pertemuan4/
 
 | Soal | Berkas | Konsep yang Diuji | Hasil Uji |
 |---|---|---|---|
-| 1 | `tugas1_bmi.py` | `input()` + casting `float`, rumus `BMI = berat / (tinggi × tinggi)`, percabangan `if-elif-else` 4 kategori, f-string `:.2f` | 65 kg / 1.70 m → BMI 22.49 (Berat badan normal) |
-| 2 | `tugas2_nilai_mahasiswa.py` | List of dictionary (6 mahasiswa), formula 30% UTS + 40% UAS + 30% Tugas, grade A–E, tabel f-string rapi, `max()`/`min()` + `lambda` | Tertinggi 92.60 (A), Terendah 39.50 (E), rata-rata 67.28 |
-| 3 | `math_operations.py` + `main.py` | Modul kustom: 3 bangun (luas & keliling), 2 konversi suhu, konstanta `PI`, `if __name__ == "__main__"`, impor `import` & `from ... import ...` | Seluruh 9 fungsi + PI teruji di `main.py` |
+| 1 | `tugas1_bmi.py` | `input()` + casting `float`, validasi `try/except`, rumus `BMI = berat / (tinggi × tinggi)`, percabangan `if-elif-else` 4 kategori | 70 kg / 1.75 m → BMI 22.86 (Berat badan normal) |
+| 2 | `tugas2_nilai_mahasiswa.py` | List of 6 dictionary, formula 30% UTS + 40% UAS + 30% Tugas, grade A–E, tabel f-string rapi, pencarian max/min | Tertinggi 92.90 (A), Terendah 52.00 (D) |
+| 3 | `math_operations.py` + `main.py` | Modul kustom: 3 bangun (luas & keliling), 2 konversi suhu, konstanta `PI`, `if __name__ == "__main__"`, impor `import as` & `from ... import ...` | Seluruh 8 fungsi + PI teruji di `main.py` |
 
 ### Tangkapan Layar — Pertemuan 4
 
 | Soal 1 - BMI | Soal 2 - Tabel nilai | Soal 3 - Modul |
 |---|---|---|
-| ![BMI](faridrizkyfauzan_124140210_pertemuan4/screenshots/1-tugas1-bmi.png) | ![Nilai](faridrizkyfauzan_124140210_pertemuan4/screenshots/2-tugas2-nilai-mahasiswa.png) | ![Modul](faridrizkyfauzan_124140210_pertemuan4/screenshots/3-tugas3-modul-matematika.png) |
+| ![BMI](faridrizkyfauzan_124140210_pertemuan4/screenshots/01-tugas1-bmi.png) | ![Nilai](faridrizkyfauzan_124140210_pertemuan4/screenshots/02-tugas2-nilai.png) | ![Modul](faridrizkyfauzan_124140210_pertemuan4/screenshots/03-tugas3-modul.png) |
 
 📖 Dokumentasi rinci: [`faridrizkyfauzan_124140210_pertemuan4/README.md`](faridrizkyfauzan_124140210_pertemuan4/README.md)
 

@@ -141,7 +141,7 @@ katalog kontak, dan generator password).
 
 ---
 
-## Kernelshoot
+## Tangkapan Layar
 
 Bukti hasil eksekusi program di terminal:
 
