@@ -14,7 +14,7 @@ Repository praktikum Pemrograman Web ITERA.
 | 2 | [faridrizkyfauzan_124140210_pertemuan2](faridrizkyfauzan_124140210_pertemuan2) | Praktikum JS Next Gen (12 demo ES6+) + Tugas Personal Student Dashboard |
 | 3 | [faridrizkyfauzan_124140210_pertemuan3](faridrizkyfauzan_124140210_pertemuan3) | Praktikum React Basics (7 topik interaktif) + Tugas Aplikasi Manajemen Buku |
 | 4 | [faridrizkyfauzan_124140210_pertemuan4](faridrizkyfauzan_124140210_pertemuan4) | Praktikum Python Dasar (6 topik + 6 latihan) + Tugas BMI, Nilai Mahasiswa & Modul Matematika |
-| 4 | [faridrizkyfauzan_124140210_pertemuan4](faridrizkyfauzan_124140210_pertemuan4) | Tugas Python Dasar: Penghitung BMI, Pengelolaan Nilai Mahasiswa, Modul Matematika |
+| 5 | [faridrizkyfauzan_124140210_pertemuan5](faridrizkyfauzan_124140210_pertemuan5) | Praktikum Python OOP (7 berkas hands-on) + Tugas Sistem Manajemen Perpustakaan |
 
 ## 🔗 Coba Langsung
 
@@ -444,4 +444,85 @@ faridrizkyfauzan_124140210_pertemuan4/
 | ![BMI](faridrizkyfauzan_124140210_pertemuan4/screenshots/01-tugas1-bmi.png) | ![Nilai](faridrizkyfauzan_124140210_pertemuan4/screenshots/02-tugas2-nilai.png) | ![Modul](faridrizkyfauzan_124140210_pertemuan4/screenshots/03-tugas3-modul.png) |
 
 📖 Dokumentasi rinci: [`faridrizkyfauzan_124140210_pertemuan4/README.md`](faridrizkyfauzan_124140210_pertemuan4/README.md)
+
+---
+
+# Pertemuan 5 - Python OOP
+
+Topik pertemuan ini adalah **Python Object-Oriented Programming** — kelanjutan
+langsung dari Python Dasar (Pertemuan 4) dan fondasi sebelum Pyramid Framework
+(Pertemuan 6). Pengumpulan berisi dua bagian: materi praktikum (7 berkas
+hands-on) dan tugas **Sistem Manajemen Perpustakaan** berbasis abstract class.
+
+```bash
+# Tugas - Sistem Manajemen Perpustakaan
+cd faridrizkyfauzan_124140210_pertemuan5/tugas_perpustakaan
+python main.py                     # demo lengkap: tambah, katalog, cari, pinjam, denda
+
+# Praktikum - 7 berkas hands-on
+cd ..
+python latihan/01_everything_is_object.py
+python latihan/03_inheritance.py
+python latihan/06_abstract_class.py
+```
+
+> Semua berkas non-interaktif (data di dalam kode) dan hanya butuh
+> **Python 3.8+** tanpa paket tambahan — seluruhnya standard library.
+
+## Struktur Folder
+
+```
+faridrizkyfauzan_124140210_pertemuan5/
+├── README.md
+├── .gitignore                      # venv/ dan __pycache__/ tidak ikut ke Git
+├── latihan/                        # 7 berkas hands-on modul
+│   ├── 01_everything_is_object.py  # type(), id(), __class__
+│   ├── 01_procedural_vs_oop.py     # prosedural vs OOP
+│   ├── 02_class_object.py          # class, self, __init__, __str__/__repr__
+│   ├── 03_inheritance.py           # super(), override, MRO, multiple inheritance
+│   ├── 04_encapsulation.py         # public/protected/private, @property, name mangling
+│   ├── 05_polymorphism.py          # override, duck typing, operator overloading
+│   └── 06_abstract_class.py        # ABC, @abstractmethod, enforcement
+├── tugas_perpustakaan/
+│   ├── library_item.py             # Abstract LibraryItem + Book + Magazine
+│   ├── member.py                   # Class Member (anggota & pinjaman)
+│   ├── library.py                  # Class Library (koleksi, tambah, cari)
+│   └── main.py                     # Program utama demo
+└── screenshots/                    # Bukti eksekusi terminal
+```
+
+## Bagian 1 — Tugas: Sistem Manajemen Perpustakaan
+
+| Komponen | Bobot | Implementasi |
+|---|---|---|
+| Abstract Class & Inheritance | 30% | `LibraryItem(ABC)` + 3 `@abstractmethod`; `Book` & `Magazine` mewarisi lewat `super().__init__()` |
+| Encapsulation | 25% | `Library.__koleksi`, `Member.__pinjaman`/`__total_denda` (name mangling) + `@property` read-only + validasi state |
+| Polymorphism | 20% | `get_detail()`/`hitung_denda()`/`durasi_pinjam()` di-override; satu loop memproses campuran `Book` & `Magazine` |
+| Functionality | 15% | Tambah item, katalog tersedia, pencarian judul **dan** ID, pinjam/kembali, denda, laporan denda massal |
+| Documentation | 10% | Header identitas, docstring tiap class/method, README + screenshot |
+
+Aturan bisnis: buku dipinjam maks 14 hari (denda Rp1.000/hari), majalah 7 hari
+(denda Rp2.000/hari), denda dibatasi Rp20.000, kuota 3 item per anggota.
+
+## Bagian 2 — Praktikum
+
+| # | Berkas | Materi |
+|---|---|---|
+| 1 | `01_everything_is_object.py` | `type()`, `__class__`, `id()`, dunder — semua tipe adalah objek |
+| 2 | `01_procedural_vs_oop.py` | Data & fungsi terpisah vs state & perilaku menyatu |
+| 3 | `02_class_object.py` | Atribut class vs instance, `self`, `__init__`, `__str__`/`__repr__` |
+| 4 | `03_inheritance.py` | `super()`, override, `isinstance()`/`issubclass()`, MRO multiple inheritance |
+| 5 | `04_encapsulation.py` | Public/protected/private, `@property` getter-setter, name mangling |
+| 6 | `05_polymorphism.py` | Override, duck typing, operator overloading (`__add__`, `__eq__`, `__lt__`) |
+| 7 | `06_abstract_class.py` | `ABC` + `@abstractmethod`, `TypeError` enforcement, interface `DatabaseConnector` |
+
+📖 Dokumentasi rinci: [`faridrizkyfauzan_124140210_pertemuan5/README.md`](faridrizkyfauzan_124140210_pertemuan5/README.md)
+
+### Tangkapan Layar — Pertemuan 5
+
+Menjalankan `python main.py` di `tugas_perpustakaan/`:
+
+| Tambah item + katalog tersedia | Peminjaman + pencarian | Denda, abstract class & ringkasan |
+|---|---|---|
+| ![Tambah dan katalog](faridrizkyfauzan_124140210_pertemuan5/screenshots/01-tambah-dan-katalog.png) | ![Peminjaman dan pencarian](faridrizkyfauzan_124140210_pertemuan5/screenshots/02-peminjaman-dan-pencarian.png) | ![Denda dan ringkasan](faridrizkyfauzan_124140210_pertemuan5/screenshots/03-denda-abstract-ringkasan.png) |
 

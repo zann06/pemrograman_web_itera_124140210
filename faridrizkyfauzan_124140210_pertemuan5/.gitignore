@@ -1,0 +1,31 @@
+# --- Python: Pertemuan 5 ---
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Cache & bytecode Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribusi / packaging
+build/
+dist/
+*.egg-info/
+
+# Laporan test & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env
+
+# File bantu / sementara
+screenshots/_output.txt
+screenshots/render.py
+
+# File junk Windows
+Thumbs.db
+Desktop.ini
